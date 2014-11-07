@@ -11,8 +11,8 @@ import diksjtra.source.Edge;
 import diksjtra.source.Node;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
 
 /**
  *
@@ -23,29 +23,24 @@ public class Diksjtra {
     public static void calculchemin(Node source)
     {
         source.minDistance = 0.0;
-        Chaine vertexQueue = new Chaine();
-      	vertexQueue.add(source);
-
-	while (!vertexQueue.isEmpty()) {
-	    Node u = vertexQueue.poll();
-            System.out.println("push  "+ u);
-            // Visit each edge Node u u
-            for (Edge e : u.adjacencies)
+        LinkedList<Node> file = new LinkedList<Node>();
+      	file.add(source);
+	
+        while (!file.isEmpty()) {
+	    Node u = file.pop();            
+            
+           
+            for (Edge e : u.lien)
             {
-                Node v = e.target;
+                Node v = e.cible;
+                double poid = e.poid;
+                double distanceTotal = u.minDistance + poid;
                 
-                System.out.println("node v  "+ v);
-                double weight = e.weight;
-                double distanceThroughU = u.minDistance + weight;
-                
-                System.out.println(distanceThroughU +"  "+ v.minDistance);
-                
-		if (distanceThroughU < v.minDistance) {
-                    System.out.println("trouver "+ v);
-		    vertexQueue.remove(v);
-		    v.minDistance = distanceThroughU ;
+		if (distanceTotal < v.minDistance) {
+		    file.remove(v);
+		    v.minDistance = distanceTotal ;
 		    v.previous = u;
-		    vertexQueue.add(v);
+		    file.push(v);
 		}
             }
         }
@@ -59,7 +54,7 @@ public class Diksjtra {
         Collections.reverse(path);
         return path;
     }
-    /*
+    
     public static void main(String[] args)
     {
         Node v0 = new Node("Paris");
@@ -69,28 +64,28 @@ public class Diksjtra {
 	Node v4 = new Node("Gap");
         Node v5 = new Node("Marseille");
 
-	v0.adjacencies = new Edge[]{    new Edge(v1, 7),
+	v0.lien = new Edge[]{    new Edge(v1, 7),
                                         new Edge(v2, 9),
                                         new Edge(v3, 14) };
         
-	v1.adjacencies = new Edge[]{    new Edge(v0, 7),
+	v1.lien = new Edge[]{    new Edge(v0, 7),
                                         new Edge(v2, 10),
                                         new Edge(v4, 15) };
         
-	v2.adjacencies = new Edge[]{    new Edge(v0, 9),
+	v2.lien = new Edge[]{    new Edge(v0, 9),
                                         new Edge(v1, 10),
                                         new Edge(v3, 2),
                                         new Edge(v4, 11)};
         
-	v3.adjacencies = new Edge[]{    new Edge(v0, 14),
+	v3.lien = new Edge[]{    new Edge(v0, 14),
                                         new Edge(v2, 2),
                                         new Edge(v5, 9)};
         
-	v4.adjacencies = new Edge[]{    new Edge(v1, 15),
+	v4.lien = new Edge[]{    new Edge(v1, 15),
                                         new Edge(v2, 11),
                                         new Edge(v5, 6) };
         
-        v5.adjacencies = new Edge[]{    new Edge(v4, 6),
+        v5.lien = new Edge[]{    new Edge(v4, 6),
                                         new Edge(v3, 9)};
         
 	Node[] listNode = { v0, v1, v2, v3, v4, v5};
@@ -101,5 +96,5 @@ public class Diksjtra {
 	    List<Node> path = plusCourtChemin(v);
 	    System.out.println("Path: " + path);
 	}
-    }*/
+    }
 }

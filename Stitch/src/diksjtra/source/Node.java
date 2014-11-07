@@ -13,7 +13,7 @@ package diksjtra.source;
 public class Node implements Comparable<Node> {
     
     public final String name;
-    public Edge[] adjacencies;
+    public Edge[] lien;
     public double minDistance = Double.POSITIVE_INFINITY;
     public Node previous;
     

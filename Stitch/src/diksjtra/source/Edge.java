@@ -11,8 +11,10 @@ package diksjtra.source;
  * @author 626
  */
 public class Edge {
-    public final Node target;
-    public final double weight;
-    public Edge(Node argTarget, double argWeight)
-    { target = argTarget; weight = argWeight; }
+    public final Node cible;
+    public final double poid;
+    public Edge(Node argTarget, double argWeight){ 
+        cible = argTarget; 
+        poid = argWeight; 
+    }
 }
