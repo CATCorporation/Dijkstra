@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import traitement.Graph;
 
 /**
  *
@@ -57,7 +58,14 @@ public class Diksjtra {
     
     public static void main(String[] args)
     {
-        Node v0 = new Node("Paris");
+        
+        Graph g = new Graph();
+        g.initGraph("C:\\Developpement\\Workspace\\Java\\Dijkstra\\Stitch\\src\\traitement\\map.txt");
+        for(Node n : g.getNodes()){
+            System.out.println(n.name);
+        }
+        
+        /*Node v0 = new Node("Paris");
 	Node v1 = new Node("Lyon");
 	Node v2 = new Node("Grenoble");
 	Node v3 = new Node("Valence");
@@ -96,5 +104,6 @@ public class Diksjtra {
 	    List<Node> path = plusCourtChemin(v);
 	    System.out.println("Path: " + path);
 	}
+        */
     }
 }
