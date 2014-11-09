@@ -20,6 +20,7 @@ public class Node implements Comparable<Node> {
     public Node(String id, String name){ 
         this.name = name; 
         this.id = id;
+	lien = new Edge[0];
     }
     public String toString(){ 
         return name; 
