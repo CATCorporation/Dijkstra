@@ -12,13 +12,14 @@ package diksjtra.source;
  */
 public class Node implements Comparable<Node> {
     
-    public final String name;
+    public final String id, name;
     public Edge[] lien;
     public double minDistance = Double.POSITIVE_INFINITY;
     public Node previous;
     
-    public Node(String argName){ 
-        name = argName; 
+    public Node(String id, String name){ 
+        this.name = name; 
+        this.id = id;
     }
     public String toString(){ 
         return name; 

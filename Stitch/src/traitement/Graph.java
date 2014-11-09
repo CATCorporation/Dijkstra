@@ -21,7 +21,7 @@ public class Graph{
             
             BufferedReader file ;
             String line;
-            StringBuffer name;
+            String name, id;
             int y = 0;
             try
             {
@@ -30,19 +30,22 @@ public class Graph{
                     {
                         for(int i = 0; i < line.length(); i++){
                             
-                            name = new StringBuffer(i + " : " + y + " : ");
+                            id = (i + " : " + y + " : ");
                             if(line.charAt(i) == ' '){
-                                name.append("void");
-                                this.registerNode(new Node(name.toString()));
+                                name = "void";
+                                this.registerNode(new Node(id, name));
                             }else if(line.charAt(i) == 'G'){
-                                name.append("grass");
-                                this.registerNode(new Node(name.toString()));
+                                name = "grass";
+                                this.registerNode(new Node(id, name));
                             }else if(line.charAt(i) == 'A'){
-                                name.append("end");
-                                this.registerNode(new Node(name.toString()));
+                                name = "end";
+                                this.registerNode(new Node(id, name));
                             }else if(line.charAt(i) == 'G'){
-                                name.append("start");
-                                this.registerNode(new Node(name.toString()));
+                                name = "start";
+                                this.registerNode(new Node(id, name));
+                            }else{
+                                name = "wall";
+                                this.registerNode(new Node(id, name));
                             }
                             
                         }
@@ -57,6 +60,21 @@ public class Graph{
             catch (IOException a) 
             {
                     System.out.println("Problème d'IO  en lecture");
+            }
+        }
+        
+        public void initEdge(){
+            for(Node n : this.getNodes()){
+                int x = Integer.parseInt(n.name.split(":")[0]);
+                int y = Integer.parseInt(n.name.split(":")[1]);
+                if(n.name.split(":")[2].equals("void")){
+                    Node otherNode = this.getNode(x-1 + " : " + y );
+                    if(otherNode != null){
+                        if(!otherNode.name.equals("wall")){
+                        
+                        }
+                    }
+                }
             }
         }
         
@@ -76,7 +94,7 @@ public class Graph{
         
 	public void registerNode(Node node) {
 		// TODO Auto-generated method stub
-		map.put((String) node.name, node);
+		map.put((String) node.id, node);
 	}
 
 	public void unregisterNode(Object key) {
