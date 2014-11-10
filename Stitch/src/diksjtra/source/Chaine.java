@@ -5,89 +5,33 @@
  */
 package diksjtra.source;
 
+import java.util.ArrayList;
+
 
 /**
  *
  * @author 626
  */
-public class Chaine {
-   /* Node tete;
+public class Chaine extends ArrayList<Node>{
+     
+    Node firstElement;
+    boolean reversed;
     
-    public void Chaine(){
-        tete = null;
+    public Chaine ()    {
+        firstElement = null;
+        reversed = false;
     }
-    @Override
-    public void add (Node noeud){
-        if( tete == null )
-            tete = noeud;
-        else{
-            while (tete.previous != null)
-                tete = tete.previous; 
-            tete.previous = noeud;
-        }
-    }
-    
-    public Node push(){
-        return tete; 
-    }
-    
-    public void remove (Node v){
-        System.out.println(" trouver noeud "+ v.toString());
-       while( tete != null){
-           if(tete.toString().equals(v.toString())){
-                System.out.println(" trouver noeud "+ v.toString());
-                Node sup = tete.previous;
-                tete = null;
-                tete = sup;
-            }
-           tete = tete.previous;
-       }
-                       
-    }
-    */
-    Node firstElement = null;
-    boolean reversed = false;
-    
-    public boolean isEmpty(){
-        if (firstElement == null )
-            return true;
-        return false;
-    }
-    
-   
 
     public void push(Node element) {
-        if (firstElement != null) {
-            element.previous = firstElement;
-            firstElement = element;
-        } else {
-            firstElement = element;
-        }
+       add(element);
     }
 
-    public Node pop() {
-        
-        Node result;
-        result = firstElement;
-        firstElement = firstElement.previous;
-        return result;
+    public Node pop() {        
+        Node e = get(size() - 1);
+        remove(size() - 1);
+        return e;
     }
-
-    public void remove( Node tmp) {
-        Node lien = firstElement;
-        Node prev = lien;
-        
-        while(lien != null && lien != tmp){
-            prev = lien;
-            lien = lien.previous;
-        }
-        if(lien == tmp){
-            prev.previous = lien.previous;
-            lien = null;
-        }
-        
-    }
-
+/*
     public String toString() {
         
         Node tmp = firstElement;
@@ -97,24 +41,9 @@ public class Chaine {
             tmp = tmp.previous;
         }
         return result;
-    }
+    }   
 
-   
-
-    public boolean empty() {
-        if (firstElement == null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public Node peek() {
-        return firstElement;
-    }
-
-    public int search(String value) {
-       
+    public int search(String value) {       
         int i = 1;
         Node tmp = firstElement;
         for (int j = 0 ; j < tmp.lien.length; j++) { 
@@ -125,7 +54,8 @@ public class Chaine {
             i++;
         }
         return -1;
-    }
+    }*/
+    
     public void print(){
         Node tmp = firstElement; 
         

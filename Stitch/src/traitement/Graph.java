@@ -40,7 +40,7 @@ public class Graph{
                             }else if(line.charAt(i) == 'A'){
                                 name = "end";
                                 this.registerNode(new Node(id, name));
-                            }else if(line.charAt(i) == 'G'){
+                            }else if(line.charAt(i) == 'D'){
                                 name = "start";
                                 this.registerNode(new Node(id, name));
                             }else{
