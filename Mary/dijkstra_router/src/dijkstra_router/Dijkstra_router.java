@@ -37,15 +37,18 @@ public class Dijkstra_router {
 		graph.registerNode(marseille);
 		
 		// Build edges
-		new GenericEdge(paris, lyon, new Distance(1));
-		new GenericEdge(lyon, grenoble, new Distance(1));
-		new GenericEdge(lyon, valence, new Distance(1));
-		new GenericEdge(grenoble, valence, new Distance(1));
-		new GenericEdge(grenoble, gap, new Distance(1));
-		new GenericEdge(gap, marseille, new Distance(1));
-		new GenericEdge(valence, marseille, new Distance(4));
+		new GenericEdge(paris, lyon, new Distance(400));
+		new GenericEdge(lyon, grenoble, new Distance(100));
+		new GenericEdge(lyon, valence, new Distance(100));
+		new GenericEdge(grenoble, valence, new Distance(100));
+		new GenericEdge(grenoble, gap, new Distance(100));
+		new GenericEdge(gap, marseille, new Distance(250));
+		new GenericEdge(valence, marseille, new Distance(250));
+                Chaine path = new Chaine();
+                Dijstra.findeBestWay2(graph, paris, marseille,path);
                 
-                Dijstra.findeBestWay2(graph, paris, marseille);
+                for(int i = 0; i < path.size(); i++)
+                    System.out.println("Lieux : "+ path.get(i)+ " ditance : "+path.get(i).getDistance());
     }
     
 }
