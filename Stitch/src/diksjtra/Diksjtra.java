@@ -11,7 +11,6 @@ import diksjtra.source.Edge;
 import diksjtra.source.Node;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**

@@ -25,33 +25,32 @@ public class Graph{
             int y = 0;
             try
             {
-                    file = new BufferedReader(new FileReader(path)) ;
-                    while ((line = file.readLine()) != null) 
-                    {
-                        for(int i = 0; i < line.length(); i++){
-                            
-                            id = (i + " : " + y + " : ");
-                            if(line.charAt(i) == ' '){
-                                name = "void";
-                                this.registerNode(new Node(id, name));
-                            }else if(line.charAt(i) == 'G'){
-                                name = "grass";
-                                this.registerNode(new Node(id, name));
-                            }else if(line.charAt(i) == 'A'){
-                                name = "end";
-                                this.registerNode(new Node(id, name));
-                            }else if(line.charAt(i) == 'D'){
-                                name = "start";
-                                this.registerNode(new Node(id, name));
-                            }else{
-                                name = "wall";
-                                this.registerNode(new Node(id, name));
-                            }
-                            
-                        }
-                        y++;
+                file = new BufferedReader(new FileReader(path)) ;
+                while ((line = file.readLine()) != null) 
+                {
+                    for(int i = 0; i < line.length(); i++){
+
+                        id = (i + " : " + y + " : ");
+                        if(line.charAt(i) == ' '){
+                            name = "void";
+                            this.registerNode(new Node(id, name));
+                        }else if(line.charAt(i) == 'G'){
+                            name = "grass";
+                            this.registerNode(new Node(id, name));
+                        }else if(line.charAt(i) == 'A'){
+                            name = "end";
+                            this.registerNode(new Node(id, name));
+                        }else if(line.charAt(i) == 'D'){
+                            name = "start";
+                            this.registerNode(new Node(id, name));
+                        }else{
+                            name = "wall";
+                            this.registerNode(new Node(id, name));
+                        }                            
                     }
-                    file.close();
+                    y++;
+                }
+                file.close();
             }//try
             catch (NullPointerException a)
             {

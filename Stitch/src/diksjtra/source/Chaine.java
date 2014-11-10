@@ -12,6 +12,7 @@ import java.util.ArrayList;
  *
  * @author 626
  */
+
 public class Chaine extends ArrayList<Node>{
      
     Node firstElement;
