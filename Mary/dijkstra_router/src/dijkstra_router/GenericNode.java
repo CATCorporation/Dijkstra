@@ -10,7 +10,7 @@ public class GenericNode{
 	private String key;
 	private Object value;
         private double distance = Double.POSITIVE_INFINITY;
-
+        public GenericNode previous;
     public double getDistance() {
         return distance;
     }

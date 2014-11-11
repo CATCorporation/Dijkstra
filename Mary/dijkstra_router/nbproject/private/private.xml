@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Developpement/Workspace/Java/dijkstra_router/src/dijkstra_router/Dijkstra_router.java</file>
-            <file>file:/C:/Developpement/Workspace/Java/dijkstra_router/src/algo/graph/router/dijkstra/interfaces/IRouter.java</file>
+            <file>file:/C:/Developpement/Workspace/Java/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/Dijstra.java</file>
+            <file>file:/C:/Developpement/Workspace/Java/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/GenericNode.java</file>
+            <file>file:/C:/Developpement/Workspace/Java/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/Distance.java</file>
+            <file>file:/C:/Developpement/Workspace/Java/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/Dijkstra_router.java</file>
         </group>
     </open-files>
 </project-private>
