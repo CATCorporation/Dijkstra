@@ -7,6 +7,7 @@
 package dijkstra_router;
 
 import java.util.Comparator;
+import java.util.List;
 
 /**
  *
@@ -22,7 +23,7 @@ public class Dijkstra_router {
        Graph graph = new Graph();
 
 		// Build node.
-		GenericNode paris = new GenericNode("Paris");
+		/*GenericNode paris = new GenericNode("Paris");
 		GenericNode lyon = new GenericNode("Lyon");
 		GenericNode grenoble = new GenericNode("Grenoble");
 		GenericNode valence = new GenericNode("Valence");
@@ -53,6 +54,14 @@ public class Dijkstra_router {
                 }
                 //for(int i = 0; i < path.size(); i++)
                   //  System.out.println("Lieux : "+ path.get(i)+ " ditance : "+path.get(i).getDistance());
+    */
+       graph.initGraph("C:\\Developpement\\Workspace\\Java\\Dijkstra\\Mary\\dijkstra_router\\src\\dijkstra_router\\map.txt");
+       graph.initEdge();
+       
+       for(GenericEdge e : (List<GenericEdge>) graph.getNode("1:1").getEdges()){
+           System.out.println(e.getOther(graph.getNode("1:1")));
+           
+       }
     }
     
 }

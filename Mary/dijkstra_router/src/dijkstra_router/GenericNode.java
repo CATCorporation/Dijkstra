@@ -8,10 +8,11 @@ public class GenericNode{
 	
 	private List<GenericEdge> edges = new ArrayList<GenericEdge>();
 	private String key;
-	private Object value;
+	private String value;
         private double distance = Double.POSITIVE_INFINITY;
         public GenericNode previous;
-    public double getDistance() {
+    
+        public double getDistance() {
         return distance;
     }
 
@@ -23,7 +24,7 @@ public class GenericNode{
 		this.key = key;	
 	}
 	
-	public GenericNode(String key, Object value){
+	public GenericNode(String key, String value){
 		this.key = key;
 		this.value = value;
 	}
@@ -37,12 +38,9 @@ public class GenericNode{
 		return edges;
 	}
 
-	public Object getId() {
-		// TODO Auto-generated method stub
-		return (Object) key;
-	}
 
-	public Object getValue() {
+
+	public String getValue() {
 		// TODO Auto-generated method stub
 		return value;
 	}
