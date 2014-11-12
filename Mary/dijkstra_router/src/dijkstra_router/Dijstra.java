@@ -42,7 +42,7 @@ public class Dijstra {
         
     }
     
-    public static void findeBestWay2(Graph g, GenericNode start, GenericNode dest, Chaine path){
+    public static void findeBestWay2(Graph g, GenericNode start, GenericNode dest){
         ArrayList<GenericNode> listNodes = g.getNodes();
         GenericNode other, previous = null, current = start;
         current.setDistance(0);
@@ -55,13 +55,17 @@ public class Dijstra {
                 queue.add(edge);
             }
             GenericEdge temp = (GenericEdge) queue.remove();
-            
+            i = (listNodes.size()-1);
             while((other = temp.getOther(current)) == null){               
                
-               current = listNodes.get(listNodes.size()-1); 
-                System.out.println("en fait je repart de " + current);
-               listNodes.remove(listNodes.size()-1);
-               
+                   System.out.println("je veux prendre l'axe " + temp);
+                   current = listNodes.get(i);
+                   System.out.println("en fait je repart de " + current);
+                   listNodes.remove(i);
+                   i--;
+                
+                    
+                
             }
            System.out.println("Je prend l'axe " + temp);
 
@@ -71,7 +75,6 @@ public class Dijstra {
                 other.setDistance(temp.getAttribute().getValue()+current.getDistance());
                 //System.out.println(" bonnnnnnnnnnn --> "+other + " valeur " + other.getDistance());
                 other.previous = current;
-                path.push(other);
            }
             listNodes.add(current);
             current.getEdges().remove(temp);

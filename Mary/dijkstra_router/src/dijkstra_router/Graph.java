@@ -67,7 +67,7 @@ public class Graph{
             GenericNode node, verNode, horNode;
             while(x < 49){
                 y=0;
-                while(y < 17){
+                while(y < 18){
                     node = this.getNode(x+":"+y);
                     horNode = this.getNode((x-1)+":"+y);
                     verNode = this.getNode(x+":"+(y-1));
@@ -77,7 +77,7 @@ public class Graph{
                                 new GenericEdge(node, horNode, new Distance(2));
                             else
                                 new GenericEdge(node, horNode, new Distance(1)); 
-                            System.out.println("je créer un edge entre " + node + " et " + horNode);
+                            //System.out.println("je créer un edge entre " + node + " et " + horNode);
                         }
                     }
                     if(verNode != null){
@@ -86,7 +86,7 @@ public class Graph{
                                 new GenericEdge(node, verNode, new Distance(2));
                             else
                                 new GenericEdge(node, verNode, new Distance(1));                        
-                            System.out.println("je créer un edge entre " + node + " et " + verNode);
+                            //System.out.println("je créer un edge entre " + node + " et " + verNode);
                         }
                     }
                     y++;

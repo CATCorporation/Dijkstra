@@ -58,10 +58,16 @@ public class Dijkstra_router {
        graph.initGraph("C:\\Developpement\\Workspace\\Java\\Dijkstra\\Mary\\dijkstra_router\\src\\dijkstra_router\\map.txt");
        graph.initEdge();
        
-       for(GenericEdge e : (List<GenericEdge>) graph.getNode("1:1").getEdges()){
-           System.out.println(e.getOther(graph.getNode("1:1")));
-           
-       }
+       GenericNode depart = graph.getNode("5:17");
+       GenericNode arrive = graph.getNode("5:2");
+       Dijstra.findeBestWay2(graph, depart, arrive);
+       
+       //while(arrive.previous != null){
+         //           System.out.println(arrive);
+           //         arrive = arrive.previous;
+       //}
+      
+       
     }
     
 }
