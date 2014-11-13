@@ -44,39 +44,43 @@ public class Dijstra {
     
     public static void findeBestWay2(Graph g, GenericNode start, GenericNode dest){
         ArrayList<GenericNode> listNodes = g.getNodes();
-        GenericNode other, previous = null, current = start;
+        GenericNode other, current = start;
         current.setDistance(0);
         
         int i = 0;
         LinkedPriorityQueue queue = new LinkedPriorityQueue(new ComparatorDistance());
+        int count = 0;
         while(current != dest){
-            System.out.println("Je suis à " + current);
+            System.out.println("graph.getNode(\"2:17\") " + g.getNode("2:17").getEdges());
+            //System.out.println("Je suis à " + current);
+            //Selectionne dans la file de priorité le prochain chemin
+            //System.out.println("edge " + current.getEdges().size());
             for(GenericEdge edge : (List<GenericEdge>) current.getEdges()){
+               // System.out.println(" j'ajoute " + queue.size());
                 queue.add(edge);
             }
             GenericEdge temp = (GenericEdge) queue.remove();
-            i = (listNodes.size()-1);
-            while((other = temp.getOther(current)) == null){               
+            //System.out.println(" j'ai supprimé " + temp);
+            i = 0;
+            GenericNode tageul = current;
+            while((other = temp.getOther(current)) == null && temp.getOther(current) != current){               
                
-                   System.out.println("je veux prendre l'axe " + temp);
+                   //System.out.println("je veux prendre l'axe " + temp);
                    current = listNodes.get(i);
-                   System.out.println("en fait je repart de " + current);
-                   listNodes.remove(i);
-                   i--;
-                
-                    
-                
+                   //System.out.println("en fait je repart de " + current);
+                   i++;
+                   //System.out.println("i " + i + " limit " + listNodes.size());
             }
            System.out.println("Je prend l'axe " + temp);
 
-           System.out.println("je suis senser arriver à : " + temp.getOther(current)); 
-           System.out.println("Je suis arrivé à " + other);
+           //System.out.println("je suis senser arriver à : " + temp.getOther(current)); 
+           //System.out.println("Je suis arrivé à " + other);
            if( other.getDistance() > ( current.getDistance() +temp.getAttribute().getValue() ))  {                 
                 other.setDistance(temp.getAttribute().getValue()+current.getDistance());
                 //System.out.println(" bonnnnnnnnnnn --> "+other + " valeur " + other.getDistance());
                 other.previous = current;
            }
-            listNodes.add(current);
+            //listNodes.add(current);
             current.getEdges().remove(temp);
             current = temp.getOther(current);
             current.getEdges().remove(temp);           
