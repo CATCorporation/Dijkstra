@@ -15,6 +15,12 @@ public class LinkedPriorityQueue{
 		this.c = c;
 	}
 	
+	public int getIndex(GenericEdge edge){
+	    return list.indexOf(edge);
+	}
+	public int size(){
+	    return list.size();
+	}
 	
 	public void add(Object arg0) {
 		// TODO Auto-generated method stub
@@ -43,9 +49,12 @@ public class LinkedPriorityQueue{
 	}
 
 	
-	public Object remove() {
-		// TODO Auto-generated method stub
-		return list.remove(0);
+	public Object remove() throws Exception {
+		try{
+		    return list.remove(0);
+		}catch(Exception e){
+		    throw new Exception();
+		}
 	}
 
 }

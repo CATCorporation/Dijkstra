@@ -55,13 +55,16 @@ public class Dijkstra_router {
                 //for(int i = 0; i < path.size(); i++)
                   //  System.out.println("Lieux : "+ path.get(i)+ " ditance : "+path.get(i).getDistance());
     */
-       graph.initGraph("C:\\Developpement\\Workspace\\Java\\Dijkstra\\Mary\\dijkstra_router\\src\\dijkstra_router\\map.txt");
+       graph.initGraph("/Users/Suiken/Documents/Projets/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/map.txt");
        graph.initEdge();
        
        GenericNode depart = graph.getNode("5:17");
-       GenericNode arrive = graph.getNode("5:2");
-       Dijstra.findeBestWay2(graph, depart, arrive);
-       
+       GenericNode arrive = graph.getNode("43:5");
+       try{
+	Dijstra.findeBestWay2(graph, depart, arrive);
+       }catch(Exception e){
+	   System.out.println(e.getMessage());
+       }
        //while(arrive.previous != null){
          //           System.out.println(arrive);
            //         arrive = arrive.previous;
