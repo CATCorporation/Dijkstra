@@ -22,7 +22,7 @@ public class Graph{
             String line;
             String name, id;
             int y = 0;
-            try
+            try 
             {
                 file = new BufferedReader(new FileReader(path)) ;
                 while ((line = file.readLine()) != null) 
@@ -65,28 +65,31 @@ public class Graph{
             int x = 0;
             int y = 0;
             GenericNode node, verNode, horNode;
-            while(x < 49){
+            while(x < 48){
                 y=0;
                 while(y < 18){
                     node = this.getNode(x+":"+y);
-                    horNode = this.getNode((x-1)+":"+y);
-                    verNode = this.getNode(x+":"+(y-1));
-                    if(horNode != null){
-                        if(!horNode.getValue().equals("wall")){
-                            if(horNode.getValue().equals("grass"))
-                                new GenericEdge(node, horNode, new Distance(2));
-                            else
-                                new GenericEdge(node, horNode, new Distance(1)); 
-                            //System.out.println("je créer un edge entre " + node + " et " + horNode);
+                    if(!node.getValue().equals("wall")){
+                        
+                        horNode = this.getNode((x-1)+":"+y);
+                        verNode = this.getNode(x+":"+(y-1));
+                        if(horNode != null){
+                            if(!horNode.getValue().equals("wall")){
+                                if(horNode.getValue().equals("grass"))
+                                    new GenericEdge(node, horNode, new Distance(2));
+                                else
+                                    new GenericEdge(node, horNode, new Distance(1)); 
+                                //System.out.println("je créer un edge entre " + node + " et " + horNode);
+                            }
                         }
-                    }
-                    if(verNode != null){
-                        if(!verNode.getValue().equals("wall")){
-                            if(verNode.getValue().equals("grass"))
-                                new GenericEdge(node, verNode, new Distance(2));
-                            else
-                                new GenericEdge(node, verNode, new Distance(1));                        
-                            //System.out.println("je créer un edge entre " + node + " et " + verNode);
+                        if(verNode != null){
+                            if(!verNode.getValue().equals("wall")){
+                                if(verNode.getValue().equals("grass"))
+                                    new GenericEdge(node, verNode, new Distance(2));
+                                else
+                                    new GenericEdge(node, verNode, new Distance(1));                        
+                                //System.out.println("je créer un edge entre " + node + " et " + verNode);
+                            }
                         }
                     }
                     y++;

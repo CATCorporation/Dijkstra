@@ -48,4 +48,7 @@ public class LinkedPriorityQueue{
 		return list.remove(0);
 	}
 
+        public int size(){
+            return list.size();
+        }
 }

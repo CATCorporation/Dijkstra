@@ -8,6 +8,7 @@ package dijkstra_router;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,6 +45,7 @@ public class Dijstra {
     
     public static void findeBestWay2(Graph g, GenericNode start, GenericNode dest){
         ArrayList<GenericNode> listNodes = g.getNodes();
+        HashMap<GenericEdge, GenericNode> log = new HashMap<GenericEdge, GenericNode>();
         GenericNode other, current = start;
         current.setDistance(0);
         
@@ -51,31 +53,19 @@ public class Dijstra {
         LinkedPriorityQueue queue = new LinkedPriorityQueue(new ComparatorDistance());
         int count = 0;
         while(current != dest){
-            System.out.println("graph.getNode(\"2:17\") " + g.getNode("2:17").getEdges());
-            //System.out.println("Je suis à " + current);
-            //Selectionne dans la file de priorité le prochain chemin
-            //System.out.println("edge " + current.getEdges().size());
+
             for(GenericEdge edge : (List<GenericEdge>) current.getEdges()){
-               // System.out.println(" j'ajoute " + queue.size());
                 queue.add(edge);
+                log.put(edge, current);
             }
             GenericEdge temp = (GenericEdge) queue.remove();
-            //System.out.println(" j'ai supprimé " + temp);
             i = 0;
-            GenericNode tageul = current;
-            while((other = temp.getOther(current)) == null && temp.getOther(current) != current){               
+            while((other = temp.getOther(current)) == null){               
                
-                   //System.out.println("je veux prendre l'axe " + temp);
-                   current = listNodes.get(i);
-                   //System.out.println("en fait je repart de " + current);
-                   i++;
-                   //System.out.println("i " + i + " limit " + listNodes.size());
+                   current = log.get(temp);
             }
-           System.out.println("Je prend l'axe " + temp);
-
-           //System.out.println("je suis senser arriver à : " + temp.getOther(current)); 
-           //System.out.println("Je suis arrivé à " + other);
-           if( other.getDistance() > ( current.getDistance() +temp.getAttribute().getValue() ))  {                 
+           
+            if( other.getDistance() > ( current.getDistance() +temp.getAttribute().getValue() ))  {                 
                 other.setDistance(temp.getAttribute().getValue()+current.getDistance());
                 //System.out.println(" bonnnnnnnnnnn --> "+other + " valeur " + other.getDistance());
                 other.previous = current;
@@ -87,7 +77,5 @@ public class Dijstra {
             
         }
     }
-    
-   
     
 }

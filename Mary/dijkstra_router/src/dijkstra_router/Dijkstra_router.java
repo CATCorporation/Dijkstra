@@ -62,10 +62,10 @@ public class Dijkstra_router {
        GenericNode arrive = graph.getNode("5:2");
        Dijstra.findeBestWay2(graph, depart, arrive);
        
-       //while(arrive.previous != null){
-         //           System.out.println(arrive);
-           //         arrive = arrive.previous;
-       //}
+       while(arrive.previous != null){
+            System.out.println(arrive);
+            arrive = arrive.previous;
+       }
       
        
     }
