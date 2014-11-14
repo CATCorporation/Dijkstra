@@ -43,23 +43,19 @@ public class Dijstra {
         
     }
     
-    public static void findeBestWay2(Graph g, GenericNode start, GenericNode dest){
-        ArrayList<GenericNode> listNodes = g.getNodes();
+    public static GenericNode findeBestWay2(Graph g, GenericNode start, GenericNode destOne, GenericNode destTwo){
         HashMap<GenericEdge, GenericNode> log = new HashMap<GenericEdge, GenericNode>();
         GenericNode other, current = start;
         current.setDistance(0);
         
-        int i = 0;
         LinkedPriorityQueue queue = new LinkedPriorityQueue(new ComparatorDistance());
-        int count = 0;
-        while(current != dest){
-
+        while(current != destOne && current != destTwo){
+            
             for(GenericEdge edge : (List<GenericEdge>) current.getEdges()){
                 queue.add(edge);
                 log.put(edge, current);
             }
             GenericEdge temp = (GenericEdge) queue.remove();
-            i = 0;
             while((other = temp.getOther(current)) == null){               
                
                    current = log.get(temp);
@@ -70,12 +66,13 @@ public class Dijstra {
                 //System.out.println(" bonnnnnnnnnnn --> "+other + " valeur " + other.getDistance());
                 other.previous = current;
            }
-            //listNodes.add(current);
             current.getEdges().remove(temp);
             current = temp.getOther(current);
             current.getEdges().remove(temp);           
             
         }
+        
+        return current;
     }
     
 }

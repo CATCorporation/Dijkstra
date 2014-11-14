@@ -6,6 +6,7 @@
 
 package dijkstra_router;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -59,8 +60,8 @@ public class Dijkstra_router {
        graph.initEdge();
        
        GenericNode depart = graph.getNode("5:17");
-       GenericNode arrive = graph.getNode("5:2");
-       Dijstra.findeBestWay2(graph, depart, arrive);
+       GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("1:6"), arrive;
+       arrive = Dijstra.findeBestWay2(graph, depart, arriveOne, arriveTwo);
        
        while(arrive.previous != null){
             System.out.println(arrive);
