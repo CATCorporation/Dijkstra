@@ -52,8 +52,10 @@ public class Dijstra {
         while(current != destOne && current != destTwo){
             
             for(GenericEdge edge : (List<GenericEdge>) current.getEdges()){
-                queue.add(edge);
-                log.put(edge, current);
+                if(edge.getOther(current).getMouse() == null){
+                    queue.add(edge);
+                    log.put(edge, current);
+                }
             }
             GenericEdge temp = (GenericEdge) queue.remove();
             while((other = temp.getOther(current)) == null){               
