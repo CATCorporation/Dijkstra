@@ -44,6 +44,8 @@ public class Dijstra {
     }
     
     public static GenericNode findeBestWay2(Graph g, GenericNode start){
+                    System.out.println("depart " + start);
+
         HashMap<GenericEdge, GenericNode> log = new HashMap<GenericEdge, GenericNode>();
         GenericNode res = null, other, current = start;
         current.setDistance(0);

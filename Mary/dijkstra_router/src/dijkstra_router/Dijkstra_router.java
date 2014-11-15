@@ -59,27 +59,22 @@ public class Dijkstra_router {
        graph.initGraph("C:\\Developpement\\Workspace\\Java\\Dijkstra\\Mary\\dijkstra_router\\src\\dijkstra_router\\map.txt");
        //graph.initEdge();
        int i = 0;
-       GenericNode depart = graph.getNode("5:16");
+       GenericNode depart = graph.getNode("5:17");
        GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("43:1"), arrive = null;
        arriveOne.setValue("Sortie");
        arriveTwo.setValue("Sortie");
-       //temp : while(depart != arriveOne && depart != arriveTwo){
+       temp : while(depart != arriveOne && depart != arriveTwo){
             graph.initEdge();
             
-            //System.out.println("a");
-            //System.out.println("Je part de " + depart);
             arrive = Dijstra.findeBestWay2(graph, depart);
-            while(arrive.previous != null){
-                System.out.println(arrive);
+            while(arrive.previous.previous != null){
+                //System.out.println(arrive);
                 arrive = arrive.previous;
             }
-            System.out.println(arrive);
-
-            //System.out.println("Je doit partir en " + depart);
-            if(i++ == 4){
-                //break temp;
-            }
-       //}
+            arrive.previous = null;
+            depart = arrive;
+            System.out.println("je dois partir en " + arrive);
+       }
         System.out.println("Je suis arrivé");
        
       
