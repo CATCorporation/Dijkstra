@@ -1,4 +1,4 @@
-package dijkstra_router;
+package dijkstra_router.model;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

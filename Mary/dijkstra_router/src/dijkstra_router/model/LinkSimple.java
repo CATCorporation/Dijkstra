@@ -1,4 +1,4 @@
-package dijkstra_router;
+package dijkstra_router.model;
 
 
 public class LinkSimple{

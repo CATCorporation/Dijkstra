@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-package dijkstra_router;
+package dijkstra_router.controller;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import dijkstra_router.model.Graph;
+import dijkstra_router.view.Fenetre;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -56,7 +56,9 @@ public class Dijkstra_router {
                 //for(int i = 0; i < path.size(); i++)
                   //  System.out.println("Lieux : "+ path.get(i)+ " ditance : "+path.get(i).getDistance());
     */
-       graph.initGraph("C:\\Developpement\\Workspace\\Java\\Dijkstra\\Mary\\dijkstra_router\\src\\dijkstra_router\\map.txt");
+       
+       
+       /*graph.initGraph("/Users/Suiken/Documents/Projets/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/map.txt");
        //graph.initEdge();
        int i = 0;
        GenericNode depart = graph.getNode("5:16");
@@ -80,7 +82,22 @@ public class Dijkstra_router {
                 //break temp;
             }
        //}
-        System.out.println("Je suis arrivé");
+        System.out.println("Je suis arrivé");*/
+       
+       
+       
+       
+       Runnable r = new Runnable() {
+	    @Override
+	    public void run() {
+		Fenetre monUI = new Fenetre();
+		monUI.pack();
+		// centrage sur l'écran
+		monUI.setLocationRelativeTo(null);
+		monUI.setVisible(true);
+	    }
+	};
+	SwingUtilities.invokeLater(r);
        
       
        
