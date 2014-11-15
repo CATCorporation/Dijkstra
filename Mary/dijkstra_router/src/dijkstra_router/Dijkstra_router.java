@@ -63,22 +63,23 @@ public class Dijkstra_router {
        GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("43:1"), arrive = null;
        arriveOne.setValue("Sortie");
        arriveTwo.setValue("Sortie");
-       temp : while(depart != arriveOne && depart != arriveTwo){
+       //temp : while(depart != arriveOne && depart != arriveTwo){
             graph.initEdge();
             
             //System.out.println("a");
             //System.out.println("Je part de " + depart);
             arrive = Dijstra.findeBestWay2(graph, depart);
-            while(arrive.previous != depart){
-                 arrive = arrive.previous;
-                 //System.out.println("Depart " + depart);
+            while(arrive.previous != null){
+                System.out.println(arrive);
+                arrive = arrive.previous;
             }
-            depart = arrive;
-            System.out.println("Je doit partir en " + depart);
+            System.out.println(arrive);
+
+            //System.out.println("Je doit partir en " + depart);
             if(i++ == 4){
                 //break temp;
             }
-       }
+       //}
         System.out.println("Je suis arrivé");
        
       

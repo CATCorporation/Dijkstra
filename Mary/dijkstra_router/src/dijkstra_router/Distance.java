@@ -23,6 +23,6 @@ public class Distance {
     }
     
     public void addValue(int add){
-        value += add;
+        value = add;
     }
 }

@@ -52,6 +52,7 @@ public class Dijstra {
         while(res == null){            
             for(GenericEdge edge : (List<GenericEdge>) current.getEdges()){
                 if(edge.getOther(current).getMouse() == null){
+                    edge.setAttribute((int) current.getDistance());
                     queue.add(edge);
                     log.put(edge, current);
                 }
@@ -70,9 +71,12 @@ public class Dijstra {
             current.getEdges().remove(temp);
             current = temp.getOther(current);
             current.getEdges().remove(temp);
+            if(current.getValue().equals("13:6"))
+                System.out.println("5 trouvé");
             if(current.getValue().equals("Sortie")){
                 res = current;
             }
+            //System.out.println("?");
             
         }
         
