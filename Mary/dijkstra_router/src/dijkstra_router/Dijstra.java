@@ -43,14 +43,13 @@ public class Dijstra {
         
     }
     
-    public static GenericNode findeBestWay2(Graph g, GenericNode start, GenericNode destOne, GenericNode destTwo){
+    public static GenericNode findeBestWay2(Graph g, GenericNode start){
         HashMap<GenericEdge, GenericNode> log = new HashMap<GenericEdge, GenericNode>();
-        GenericNode other, current = start;
+        GenericNode res = null, other, current = start;
         current.setDistance(0);
         
         LinkedPriorityQueue queue = new LinkedPriorityQueue(new ComparatorDistance());
-        while(current != destOne && current != destTwo){
-            
+        while(res == null){            
             for(GenericEdge edge : (List<GenericEdge>) current.getEdges()){
                 if(edge.getOther(current).getMouse() == null){
                     queue.add(edge);
@@ -70,11 +69,14 @@ public class Dijstra {
            }
             current.getEdges().remove(temp);
             current = temp.getOther(current);
-            current.getEdges().remove(temp);           
+            current.getEdges().remove(temp);
+            if(current.getValue().equals("Sortie")){
+                res = current;
+            }
             
         }
         
-        return current;
+        return res;
     }
     
 }

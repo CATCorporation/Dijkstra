@@ -31,6 +31,10 @@ public class GenericNode{
         }
         this.distance += distance;
     }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 	
 	public GenericNode(String key){
 		this.key = key;	
