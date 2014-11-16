@@ -11,6 +11,7 @@ import dijkstra_router.model.GenericNode;
 import dijkstra_router.model.Graph;
 import dijkstra_router.model.Map;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -63,8 +64,7 @@ public class Fenetre extends javax.swing.JFrame {
 	jLabelValeurSourisEnDeplacement = new javax.swing.JLabel();
         
 	setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-	setMaximumSize(new java.awt.Dimension(980, 480));
-	setMinimumSize(new java.awt.Dimension(980, 480));
+	
 
 	/*javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 	 jPanel1.setLayout(jPanel1Layout);
@@ -306,7 +306,9 @@ public class Fenetre extends javax.swing.JFrame {
 				.addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
 			.addContainerGap())
 	);
-
+        jPanel2.setMaximumSize(new Dimension(478, 100));
+        jPanel2.setMinimumSize(new Dimension(478, 100));
+        jPanel2.setPreferredSize(jPanel2.getMinimumSize());
 	javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 	getContentPane().setLayout(layout);
 	layout.setHorizontalGroup(
@@ -322,8 +324,8 @@ public class Fenetre extends javax.swing.JFrame {
 			.addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 			.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	);
-
-	//pack();
+        setMaximumSize(new java.awt.Dimension(981, 481));
+	setMinimumSize(new java.awt.Dimension(980, 480));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

@@ -61,7 +61,6 @@ public class Dijkstra_router {
 	Runnable r = new Runnable() {
 	    @Override
 	    public void run() {
-		Fenetre tmp = null;
 		Fenetre monUI = new Fenetre();
 		monUI.pack();
 		// centrage sur l'écran
