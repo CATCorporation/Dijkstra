@@ -53,7 +53,15 @@ public class Fenetre extends javax.swing.JFrame {
 	jLabel1 = new javax.swing.JLabel();
 	jLabel2 = new javax.swing.JLabel();
 	jLabel3 = new javax.swing.JLabel();
-
+        jLabelTours = new javax.swing.JLabel();
+	jLabelDeplacements = new javax.swing.JLabel();
+	jLabelSourisEnDeplacement = new javax.swing.JLabel();
+	jLabelSourisArrivees = new javax.swing.JLabel();
+	jLabelValeurTours = new javax.swing.JLabel();
+	jLabelValeurDeplacements = new javax.swing.JLabel();
+	jLabelValeurSourisArrivees = new javax.swing.JLabel();
+	jLabelValeurSourisEnDeplacement = new javax.swing.JLabel();
+        
 	setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 	setMaximumSize(new java.awt.Dimension(980, 480));
 	setMinimumSize(new java.awt.Dimension(980, 480));
@@ -138,7 +146,7 @@ public class Fenetre extends javax.swing.JFrame {
                         
                         
                         
-                        int i = 0;
+                        int i = 0,actuel = 0;
                         GenericNode depart = graph.getNode("5:16");
                         GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("43:1"), arrive = null;
                         arriveOne.setValue("Sortie");
@@ -148,7 +156,7 @@ public class Fenetre extends javax.swing.JFrame {
                             if(!running)
                                 break;
                             
-                            while (listSouris.get(i) != arriveOne && listSouris.get(i) != arriveTwo) {
+                            while (listSouris.get(actuel) != arriveOne && listSouris.get(actuel) != arriveTwo) {
                                 if(!running)                           
                                     break;
 
@@ -158,15 +166,15 @@ public class Fenetre extends javax.swing.JFrame {
 
                                 setMap(listSouris);
 
-                                arrive = Dijstra.findeBestWay2(graph, listSouris.get(i));
+                                arrive = Dijstra.findeBestWay2(graph, listSouris.get(actuel));
                                 while (arrive.previous.previous != null) {
                                     arrive = arrive.previous;
                                 }
 
                                 arrive.previous = null;                                
                                 arrive.setLibre(10);
-                                listSouris.get(i).setLibre(0);
-                                listSouris.set(i, arrive);
+                                listSouris.get(actuel).setLibre(0);
+                                listSouris.set(actuel, arrive);
 
                                 revalidate();
 
@@ -176,13 +184,15 @@ public class Fenetre extends javax.swing.JFrame {
                                     Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                                 i++;
-                                if( i == listSouris.size())
-                                    i=0;
+                                actuel++;
+                                jLabelValeurTours.setText(Integer.toString(i));
+                                if( actuel == listSouris.size())
+                                    actuel=0;
                                 break;
                             }
                             
                             if(nbSourisG > 1){
-                                if(listSouris.get(i) == arriveOne || listSouris.get(i) == arriveTwo){
+                                if(listSouris.get(actuel) == arriveOne || listSouris.get(actuel) == arriveTwo){
                                     System.out.println("supprime");
                                     //listSouris.remove(listSouris.get(i));
                                 }                                
@@ -202,7 +212,30 @@ public class Fenetre extends javax.swing.JFrame {
                
 	    }
 	});
+        jLabelDeplacements.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelDeplacements.setText("DÃ©placements");
 
+	jLabelValeurDeplacements.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelValeurDeplacements.setText("0");
+
+	jLabelTours.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelTours.setText("Tours");
+
+	jLabelValeurTours.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelValeurTours.setText("0");
+
+	jLabelSourisEnDeplacement.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelSourisEnDeplacement.setText("Souris en dÃ©placement");
+
+	jLabelValeurSourisEnDeplacement.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelValeurSourisEnDeplacement.setText("0");
+
+	jLabelSourisArrivees.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelSourisArrivees.setText("Souris arrivÃ©es");
+
+	jLabelValeurSourisArrivees.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelValeurSourisArrivees.setText("0");
+        
 	jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 	jLabel1.setText("Porte 1");
 
@@ -218,6 +251,22 @@ public class Fenetre extends javax.swing.JFrame {
 		jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
 			.addContainerGap(582, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabelTours, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelValeurTours, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+			.addGap(36, 36, 36)
+			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addComponent(jLabelDeplacements, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addComponent(jLabelValeurDeplacements, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+			.addGap(36, 36, 36)
+			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addComponent(jLabelValeurSourisEnDeplacement, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addComponent(jLabelSourisEnDeplacement, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+			.addGap(36, 36, 36)
+			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addComponent(jLabelValeurSourisArrivees, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addComponent(jLabelSourisArrivees, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+			.addGap(66, 66, 66)
 			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
 				.addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
 				.addComponent(jTextField1))
@@ -238,11 +287,19 @@ public class Fenetre extends javax.swing.JFrame {
 		.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
 			.addContainerGap(24, Short.MAX_VALUE)
 			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addComponent(jLabelDeplacements, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabelSourisArrivees, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabelSourisEnDeplacement, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabelTours, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 				.addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 				.addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 				.addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addComponent(jLabelValeurDeplacements, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabelValeurSourisArrivees, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabelValeurSourisEnDeplacement, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabelValeurTours, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 				.addComponent(jTextField3)
 				.addComponent(jTextField1)
 				.addComponent(jTextField2)
@@ -266,7 +323,7 @@ public class Fenetre extends javax.swing.JFrame {
 			.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	);
 
-	pack();
+	//pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -351,7 +408,15 @@ public class Fenetre extends javax.swing.JFrame {
 	    }
 	}
     }
-
+    
+    private javax.swing.JLabel jLabelValeurDeplacements;
+    private javax.swing.JLabel jLabelValeurSourisEnDeplacement;
+    private javax.swing.JLabel jLabelValeurSourisArrivees;
+    private javax.swing.JLabel jLabelValeurTours;
+    private JLabel jLabelSourisArrivees;
+    private JLabel jLabelSourisEnDeplacement;
+    private JLabel jLabelDeplacements;
+    private JLabel jLabelTours;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
