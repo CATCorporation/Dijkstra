@@ -47,7 +47,7 @@ public class Dijstra {
         log = new HashMap<GenericEdge, GenericNode>();
         GenericNode res = null, other, current = start;
         current.setDistance(0);
-        
+        int i = 0;
         LinkedPriorityQueue queue = new LinkedPriorityQueue(new ComparatorDistance());
         while(res == null){            
             for(GenericEdge edge : (List<GenericEdge>) current.getEdges()){
@@ -77,6 +77,8 @@ public class Dijstra {
             if(current.getValue().equals("Sortie")){
                 res = current;
             }
+            System.out.println("i :" + i);
+            i++;
             //System.out.println("?");
             
         }        

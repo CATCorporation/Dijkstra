@@ -166,23 +166,14 @@ public class Fenetre extends javax.swing.JFrame {
                                   
                                 arrive = Dijstra.findeBestWay2(graph, depart);
                                 
-                                int cpt = 0; GenericNode tmp = null;
+                                
                                 while (arrive.previous.previous != null && !arrive.previous.getKey().equals(depart.getKey())) {
-                                    arrive = arrive.previous;
-                                    if( cpt == 0)
-                                        tmp = arrive;
-                                    if(cpt == 4){
-                                        if( !tmp.getKey().equals(arrive.getKey()) ){
-                                            tmp = arrive;                                    
-                                        }
-                                        else break;
-                                        cpt = 0;
-                                    }
-                                    cpt++;
+                                    arrive = arrive.previous;                                  
                                         System.out.println("liste point :" + arrive);
                                 }
+                                
                                 System.out.println("souris : "+actuel+" va a  : "+arrive);
-                                arrive.previous = null;
+                                arrive.previous.setDistance(80000); //= null;
                                 
                                 depart = arrive;                                
                                 listSouris.set(actuel, depart);

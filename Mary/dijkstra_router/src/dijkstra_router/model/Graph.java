@@ -64,7 +64,7 @@ public class Graph{
         public void initEdge(){
             int x = 0;
             int y = 0;
-            GenericNode node, verNode, horNode;
+            GenericNode node, verNode, horNode, botNode,leftNode;
             while(x < 48){
                 y=0;
                 while(y < 18){
@@ -73,6 +73,8 @@ public class Graph{
                         
                         horNode = this.getNode((x-1)+":"+y);
                         verNode = this.getNode(x+":"+(y-1));
+                        leftNode = this.getNode((x+1)+":"+y);
+                        botNode = this.getNode(x+":"+(y+1));
                         
                         if(horNode != null){
                             if(!horNode.getValue().equals("wall") ){
@@ -85,14 +87,25 @@ public class Graph{
                                 //System.out.println("je créer un edge entre " + node + " et " + horNode);
                             }
                         }
-                        if(verNode != null){
-                            if(!verNode.getValue().equals("wall")){
+                        if(botNode != null){
+                            if(!botNode.getValue().equals("wall") ){
+                                //if(horNode.isActive() )
+                                    //System.out.println("trouve horizontale x "+x +" y" +y+ "    " + horNode.isActive());
+                                if(botNode.getValue().equals("grass"))
+                                    new GenericEdge(node, botNode, new Distance(2));
+                                else
+                                    new GenericEdge(node, botNode, new Distance(1)); 
+                                //System.out.println("je créer un edge entre " + node + " et " + horNode);
+                            }
+                        }
+                        if(leftNode != null){
+                            if(!leftNode.getValue().equals("wall")){
                                  //if(verNode.isActive() )
                                     //System.out.println("trouve verticale x "+x +" y" +y+ "    " + verNode.isActive());
-                                if(verNode.getValue().equals("grass"))
-                                    new GenericEdge(node, verNode, new Distance(2));
+                                if(leftNode.getValue().equals("grass"))
+                                    new GenericEdge(node, leftNode, new Distance(2));
                                 else
-                                    new GenericEdge(node, verNode, new Distance(1));                        
+                                    new GenericEdge(node, leftNode, new Distance(1));                        
                                 //System.out.println("je créer un edge entre " + node + " et " + verNode);
                             }
                         }
