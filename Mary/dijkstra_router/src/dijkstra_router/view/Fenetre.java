@@ -30,7 +30,7 @@ public class Fenetre extends javax.swing.JFrame {
 	jPanel1 = new JPanel(new GridLayout(19, 48, 0, 0));
 	//carte = new Map();
 	setMap(null);
-
+        running = false;
 	initComponents();
     }
 
@@ -79,11 +79,31 @@ public class Fenetre extends javax.swing.JFrame {
 	jButton1.setText("Lancer");
 	jButton1.addMouseListener(new MouseAdapter() {
 	    public void mousePressed(MouseEvent e) {		
-                
-                Thread t;
-                t = new Thread() {
+                if(running)
+                {
+                    try {
+                        Thread.sleep(1000); 
+                        //t.interrupt();                        
+                        running = false;
+                    } catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt(); 
+                    }
+                    jButton1.setText("Lancer");
+                    setMap(null);
+                }
+                else{
+                     t = new Thread() {
                     @Override
                     public void run() {
+                        // réccupérationd e la vitesse 
+                        String vitesse = jTextField3.getText();
+                        int speed = 500;
+                        try{
+                            speed = Integer.parseInt(vitesse);
+                        }catch (NumberFormatException e){
+                            System.out.println("vitesse incorrecte");
+                        }
+                        
                         Graph graph = new Graph();                    
 
                         graph.initGraph("./ressources/map.txt");
@@ -94,10 +114,14 @@ public class Fenetre extends javax.swing.JFrame {
                         arriveTwo.setValue("Sortie");
 
                         while (depart != arriveOne && depart != arriveTwo) {
+                        if(!running)                           
+                            break;
+                        
+                            
                         graph.initEdge();   
 
                             System.out.println(depart);
-
+                                
                             setMap(depart);
 
                             arrive = Dijstra.findeBestWay2(graph, depart);
@@ -114,17 +138,19 @@ public class Fenetre extends javax.swing.JFrame {
                             revalidate();
 
                             try {
-                                TimeUnit.MILLISECONDS.sleep(500);
+                                TimeUnit.MILLISECONDS.sleep(speed);
                             } catch (InterruptedException ex) {
                                 Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                     }
                 };
-                
-                    t.start();
-                
-
+                t.setDaemon(true);
+                t.start();
+                running = true;
+                jButton1.setText("Stop");
+                }
+               
 	    }
 	});
 
@@ -285,5 +311,6 @@ public class Fenetre extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private static Map carte;
-
+    private static boolean running;
+    private static  Thread t;
 }
