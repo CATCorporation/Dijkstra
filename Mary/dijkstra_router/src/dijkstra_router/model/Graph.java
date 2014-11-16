@@ -69,25 +69,30 @@ public class Graph{
                 y=0;
                 while(y < 18){
                     node = this.getNode(x+":"+y);
-                    if(!node.getValue().equals("wall")){
+                    if(!node.getValue().equals("wall") && !node.isActive()){
                         
                         horNode = this.getNode((x-1)+":"+y);
                         verNode = this.getNode(x+":"+(y-1));
+                        
                         if(horNode != null){
-                            if(!horNode.getValue().equals("wall")){
+                            if(!horNode.getValue().equals("wall") ){
+                                //if(horNode.isActive() )
+                                    //System.out.println("trouve horizontale x "+x +" y" +y+ "    " + horNode.isActive());
                                 if(horNode.getValue().equals("grass"))
-                                    new GenericEdge(node, horNode, new Distance(2+node.getLibre()));
+                                    new GenericEdge(node, horNode, new Distance(2));
                                 else
-                                    new GenericEdge(node, horNode, new Distance(1+node.getLibre())); 
+                                    new GenericEdge(node, horNode, new Distance(1)); 
                                 //System.out.println("je créer un edge entre " + node + " et " + horNode);
                             }
                         }
                         if(verNode != null){
                             if(!verNode.getValue().equals("wall")){
+                                 //if(verNode.isActive() )
+                                    //System.out.println("trouve verticale x "+x +" y" +y+ "    " + verNode.isActive());
                                 if(verNode.getValue().equals("grass"))
-                                    new GenericEdge(node, verNode, new Distance(2+node.getLibre()));
+                                    new GenericEdge(node, verNode, new Distance(2));
                                 else
-                                    new GenericEdge(node, verNode, new Distance(1+node.getLibre()));                        
+                                    new GenericEdge(node, verNode, new Distance(1));                        
                                 //System.out.println("je créer un edge entre " + node + " et " + verNode);
                             }
                         }
@@ -120,8 +125,22 @@ public class Graph{
 
 	public void unregisterNode(String key) {
 		// TODO Auto-generated method stub
-		map.remove(key);
-		
+		map.remove(key);		
 	}
+        
+        public void checkEntry(){
+            HashMap<String, GenericNode> map2 = new HashMap<String, GenericNode>();
+            GenericNode nodes = null;
+            for(String s : map.keySet()){
+                nodes = map.get(s);
+                if(nodes.isActive()) {
+                   nodes.setDistance(20);
+                    System.out.println(nodes.isActive());
+                }
+                else
+                    nodes.setDistance(Double.POSITIVE_INFINITY);
+            }
+        }
+        
 
 }

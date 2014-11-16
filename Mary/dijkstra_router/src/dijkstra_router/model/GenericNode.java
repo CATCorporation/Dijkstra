@@ -13,6 +13,15 @@ public class GenericNode{
     private Mouse mouse = null;
     public GenericNode previous;
     private int libre = 0;
+    private boolean active = false;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public int getLibre() {
         return libre;

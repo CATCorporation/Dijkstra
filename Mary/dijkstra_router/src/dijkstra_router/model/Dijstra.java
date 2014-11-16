@@ -6,8 +6,6 @@
 
 package dijkstra_router.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,7 +42,9 @@ public class Dijstra {
     }
     
     public static GenericNode findeBestWay2(Graph g, GenericNode start){
-        HashMap<GenericEdge, GenericNode> log = new HashMap<GenericEdge, GenericNode>();
+        @SuppressWarnings("Convert2Diamond")
+        HashMap<GenericEdge, GenericNode> log;
+        log = new HashMap<GenericEdge, GenericNode>();
         GenericNode res = null, other, current = start;
         current.setDistance(0);
         
@@ -62,10 +62,11 @@ public class Dijstra {
                
                    current = log.get(temp);
             }
-           
-            if( other.getDistance() > ( current.getDistance() +temp.getAttribute().getValue() ))  {                 
+            
+            if( other.getDistance() > ( current.getDistance() +temp.getAttribute().getValue() ) )  {                 
                 other.setDistance(temp.getAttribute().getValue()+current.getDistance());
                 //System.out.println(" bonnnnnnnnnnn --> "+other + " valeur " + other.getDistance());
+                //System.out.println("distance " + other.getDistance());
                 other.previous = current;
            }
             current.getEdges().remove(temp);
@@ -78,9 +79,7 @@ public class Dijstra {
             }
             //System.out.println("?");
             
-        }
-        
+        }        
         return res;
     }
-    
 }
