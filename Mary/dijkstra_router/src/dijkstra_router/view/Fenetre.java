@@ -78,42 +78,52 @@ public class Fenetre extends javax.swing.JFrame {
 	jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 	jButton1.setText("Lancer");
 	jButton1.addMouseListener(new MouseAdapter() {
-	    public void mousePressed(MouseEvent e) {
-		Graph graph = new Graph();
+	    public void mousePressed(MouseEvent e) {		
+                
+                Thread t;
+                t = new Thread() {
+                    @Override
+                    public void run() {
+                        Graph graph = new Graph();                    
 
-		graph.initGraph("/Users/Suiken/Documents/Projets/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/map.txt");
-		int i = 0;
-		GenericNode depart = graph.getNode("5:16");
-		GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("43:1"), arrive = null;
-		arriveOne.setValue("Sortie");
-		arriveTwo.setValue("Sortie");
+                        graph.initGraph("./ressources/map.txt");
+                        int i = 0;
+                        GenericNode depart = graph.getNode("5:16");
+                        GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("43:1"), arrive = null;
+                        arriveOne.setValue("Sortie");
+                        arriveTwo.setValue("Sortie");
 
-		while (depart != arriveOne && depart != arriveTwo) {
-		    graph.initEdge();
+                        while (depart != arriveOne && depart != arriveTwo) {
+                        graph.initEdge();   
 
-		    System.out.println(depart);
-		    
-		    setMap(depart);
+                            System.out.println(depart);
 
-		    arrive = Dijstra.findeBestWay2(graph, depart);
-		    while (arrive.previous.previous != null) {
+                            setMap(depart);
 
-			arrive = arrive.previous;
-			
+                            arrive = Dijstra.findeBestWay2(graph, depart);
+                            while (arrive.previous.previous != null) {
 
-		    }
+                                arrive = arrive.previous;
 
-		    arrive.previous = null;
-		    depart = arrive;
-		    
-		    revalidate();
-		    
-		    try {
-			TimeUnit.SECONDS.sleep(2);
-		    } catch (InterruptedException ex) {
-			Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
-		    }
-		}
+
+                            }
+
+                            arrive.previous = null;
+                            depart = arrive;
+
+                            revalidate();
+
+                            try {
+                                TimeUnit.MILLISECONDS.sleep(500);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }
+                };
+                
+                    t.start();
+                
 
 	    }
 	});
