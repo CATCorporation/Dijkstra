@@ -76,18 +76,18 @@ public class Graph{
                         if(horNode != null){
                             if(!horNode.getValue().equals("wall")){
                                 if(horNode.getValue().equals("grass"))
-                                    new GenericEdge(node, horNode, new Distance(2));
+                                    new GenericEdge(node, horNode, new Distance(2+node.getLibre()));
                                 else
-                                    new GenericEdge(node, horNode, new Distance(1)); 
+                                    new GenericEdge(node, horNode, new Distance(1+node.getLibre())); 
                                 //System.out.println("je créer un edge entre " + node + " et " + horNode);
                             }
                         }
                         if(verNode != null){
                             if(!verNode.getValue().equals("wall")){
                                 if(verNode.getValue().equals("grass"))
-                                    new GenericEdge(node, verNode, new Distance(2));
+                                    new GenericEdge(node, verNode, new Distance(2+node.getLibre()));
                                 else
-                                    new GenericEdge(node, verNode, new Distance(1));                        
+                                    new GenericEdge(node, verNode, new Distance(1+node.getLibre()));                        
                                 //System.out.println("je créer un edge entre " + node + " et " + verNode);
                             }
                         }

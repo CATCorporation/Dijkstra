@@ -5,6 +5,7 @@
  */
 package dijkstra_router.view;
 
+import dijkstra_router.model.Chaine;
 import dijkstra_router.model.Dijstra;
 import dijkstra_router.model.GenericNode;
 import dijkstra_router.model.Graph;
@@ -97,55 +98,103 @@ public class Fenetre extends javax.swing.JFrame {
                     public void run() {
                         // réccupérationd e la vitesse 
                         String vitesse = jTextField3.getText();
+                        Chaine listSouris = new Chaine();
+                        Graph graph = new Graph();
+                        graph.initGraph("./ressources/map.txt");
+                        
+                        // init vitesse de jeu 
                         int speed = 500;
                         try{
                             speed = Integer.parseInt(vitesse);
+                            if(speed < 350)
+                                speed = 350;
                         }catch (NumberFormatException e){
                             System.out.println("vitesse incorrecte");
                         }
                         
-                        Graph graph = new Graph();                    
-
-                        graph.initGraph("./ressources/map.txt");
+                        // init souris gauche 
+                        int nbSourisG = 1;
+                         try{
+                            nbSourisG = Integer.parseInt(jTextField1.getText());                           
+                        }catch (NumberFormatException e){
+                            System.out.println("vitesse incorrecte");
+                        }
+                        for(int i = 0,j = 0; i < nbSourisG; i++){
+                            GenericNode souris = null;
+                            if(j == 0)
+                                souris = graph.getNode("5:16");
+                            if(j == 1)
+                                souris = graph.getNode("6:17");
+                            if(j == 2)
+                                souris = graph.getNode("4:17");
+                            if(j == 3)
+                                souris = graph.getNode("6:16");
+                            j++;
+                            if( j == 4 )
+                                j = 0;
+                            listSouris.push(souris);
+                            
+                        }
+                        
+                        
+                        
                         int i = 0;
                         GenericNode depart = graph.getNode("5:16");
                         GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("43:1"), arrive = null;
                         arriveOne.setValue("Sortie");
                         arriveTwo.setValue("Sortie");
 
-                        while (depart != arriveOne && depart != arriveTwo) {
-                        if(!running)                           
-                            break;
-                        
+                        while(!listSouris.isEmpty()){
+                            if(!running)
+                                break;
                             
-                        graph.initEdge();   
+                            while (listSouris.get(i) != arriveOne && listSouris.get(i) != arriveTwo) {
+                                if(!running)                           
+                                    break;
 
-                            System.out.println(depart);
-                                
-                            setMap(depart);
+                                graph.initEdge();   
 
-                            arrive = Dijstra.findeBestWay2(graph, depart);
-                            while (arrive.previous.previous != null) {
+                                System.out.println(listSouris.get(i));
 
-                                arrive = arrive.previous;
+                                setMap(listSouris);
 
+                                arrive = Dijstra.findeBestWay2(graph, listSouris.get(i));
+                                while (arrive.previous.previous != null) {
+                                    arrive = arrive.previous;
+                                }
 
+                                arrive.previous = null;                                
+                                arrive.setLibre(10);
+                                listSouris.get(i).setLibre(0);
+                                listSouris.set(i, arrive);
+
+                                revalidate();
+
+                                try {
+                                    TimeUnit.MILLISECONDS.sleep(speed);
+                                } catch (InterruptedException ex) {
+                                    Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                i++;
+                                if( i == listSouris.size())
+                                    i=0;
+                                break;
                             }
-
-                            arrive.previous = null;
-                            depart = arrive;
-
-                            revalidate();
-
-                            try {
-                                TimeUnit.MILLISECONDS.sleep(speed);
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
+                            
+                            if(nbSourisG > 1){
+                                if(listSouris.get(i) == arriveOne || listSouris.get(i) == arriveTwo){
+                                    System.out.println("supprime");
+                                    //listSouris.remove(listSouris.get(i));
+                                }                                
                             }
+                            else
+                                if(listSouris.get(0) == arriveOne || listSouris.get(0) == arriveTwo){
+                                    System.out.println("supprime");
+                                    //listSouris.remove(listSouris.get(0));
+                                }
                         }
                     }
                 };
-                t.setDaemon(true);
                 t.start();
                 running = true;
                 jButton1.setText("Stop");
@@ -249,7 +298,7 @@ public class Fenetre extends javax.swing.JFrame {
 	}
     }
 
-    public void setMap(GenericNode souris) {
+    public void setMap(Chaine souris) {
 	if (jPanel1 != null) {
 	    jPanel1.removeAll();
 	}
@@ -284,10 +333,12 @@ public class Fenetre extends javax.swing.JFrame {
 		}
 		if (souris != null) {
 		    String s = x + ":" + y;
-		    if (souris.getKey().equals(s)) {
-			grassIcon = new ImageIcon("./images/souris.png");
-			labels[j] = new JLabel(grassIcon);
-		    }
+                    for (GenericNode souri : souris) {
+                        if (souri.getKey().equals(s)) {
+                            grassIcon = new ImageIcon("./images/souris.png");
+                            labels[j] = new JLabel(grassIcon);
+                        }                            
+                    }
 		}
 		labels[j] = new JLabel(grassIcon);
 		jPanel1.add(labels[j]);

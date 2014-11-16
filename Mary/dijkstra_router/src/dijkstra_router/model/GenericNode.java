@@ -12,6 +12,15 @@ public class GenericNode{
     private double distance = Double.POSITIVE_INFINITY;
     private Mouse mouse = null;
     public GenericNode previous;
+    private int libre = 0;
+
+    public int getLibre() {
+        return libre;
+    }
+
+    public void setLibre(int libre) {
+        this.libre = libre;
+    }
     
     public Mouse getMouse() {
         return mouse;

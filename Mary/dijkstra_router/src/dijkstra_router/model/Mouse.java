@@ -13,7 +13,10 @@ package dijkstra_router.model;
 public class Mouse {
     
     private String name = "souris";
-
+    
+    public Mouse(String number ){
+        name = name+"_"+number;
+    }
     public String getName() {
         return name;
     }
