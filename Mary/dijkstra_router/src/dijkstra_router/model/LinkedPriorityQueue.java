@@ -1,6 +1,5 @@
 package dijkstra_router.model;
 
-import dijkstra_router.model.LinkSimple;
 import java.util.ArrayList;
 import java.util.Comparator;
 

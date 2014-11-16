@@ -5,11 +5,7 @@
  */
 package dijkstra_router.controller;
 
-import dijkstra_router.model.Dijstra;
-import dijkstra_router.model.GenericNode;
-import dijkstra_router.model.Graph;
 import dijkstra_router.view.Fenetre;
-import java.util.concurrent.TimeUnit;
 import javax.swing.SwingUtilities;
 
 /**
@@ -61,7 +57,6 @@ public class Dijkstra_router {
 	Runnable r = new Runnable() {
 	    @Override
 	    public void run() {
-		Fenetre tmp = null;
 		Fenetre monUI = new Fenetre();
 		monUI.pack();
 		// centrage sur l'écran

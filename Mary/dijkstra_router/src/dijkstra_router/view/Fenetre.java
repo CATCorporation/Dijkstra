@@ -30,7 +30,7 @@ public class Fenetre extends javax.swing.JFrame {
 	jPanel1 = new JPanel(new GridLayout(19, 48, 0, 0));
 	//carte = new Map();
 	setMap(null);
-        running = false;
+	running = false;
 	initComponents();
     }
 
@@ -52,6 +52,14 @@ public class Fenetre extends javax.swing.JFrame {
 	jLabel1 = new javax.swing.JLabel();
 	jLabel2 = new javax.swing.JLabel();
 	jLabel3 = new javax.swing.JLabel();
+	jLabelTours = new javax.swing.JLabel();
+	jLabelDeplacements = new javax.swing.JLabel();
+	jLabelSourisEnDeplacement = new javax.swing.JLabel();
+	jLabelSourisArrivees = new javax.swing.JLabel();
+	jLabelValeurTours = new javax.swing.JLabel();
+	jLabelValeurDeplacements = new javax.swing.JLabel();
+	jLabelValeurSourisArrivees = new javax.swing.JLabel();
+	jLabelValeurSourisEnDeplacement = new javax.swing.JLabel();
 
 	setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 	setMaximumSize(new java.awt.Dimension(980, 480));
@@ -78,81 +86,104 @@ public class Fenetre extends javax.swing.JFrame {
 	jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 	jButton1.setText("Lancer");
 	jButton1.addMouseListener(new MouseAdapter() {
-	    public void mousePressed(MouseEvent e) {		
-                if(running)
-                {
-                    try {
-                        Thread.sleep(1000); 
-                        //t.interrupt();                        
-                        running = false;
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt(); 
-                    }
-                    jButton1.setText("Lancer");
-                    setMap(null);
-                }
-                else{
-                     t = new Thread() {
-                    @Override
-                    public void run() {
-                        // réccupérationd e la vitesse 
-                        String vitesse = jTextField3.getText();
-                        int speed = 500;
-                        try{
-                            speed = Integer.parseInt(vitesse);
-                        }catch (NumberFormatException e){
-                            System.out.println("vitesse incorrecte");
-                        }
-                        
-                        Graph graph = new Graph();                    
+	    public void mousePressed(MouseEvent e) {
+		if (running) {
+		    try {
+			Thread.sleep(1000);
+			//t.interrupt();                        
+			running = false;
+		    } catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		    }
+		    jButton1.setText("Lancer");
+		    setMap(null);
+		} else {
+		    t = new Thread() {
+			@Override
+			public void run() {
+			    // réccupérationd e la vitesse 
+			    String vitesse = jTextField3.getText();
+			    int speed = 500;
+			    try {
+				speed = Integer.parseInt(vitesse);
+			    } catch (NumberFormatException e) {
+				System.out.println("vitesse incorrecte");
+			    }
 
-                        graph.initGraph("./ressources/map.txt");
-                        int i = 0;
-                        GenericNode depart = graph.getNode("5:16");
-                        GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("43:1"), arrive = null;
-                        arriveOne.setValue("Sortie");
-                        arriveTwo.setValue("Sortie");
+			    Graph graph = new Graph();
 
-                        while (depart != arriveOne && depart != arriveTwo) {
-                        if(!running)                           
-                            break;
-                        
-                            
-                        graph.initEdge();   
+			    graph.initGraph("./ressources/map.txt");
+			    int i = 0;
+			    GenericNode depart = graph.getNode("5:16");
+			    GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("43:1"), arrive = null;
+			    arriveOne.setValue("Sortie");
+			    arriveTwo.setValue("Sortie");
 
-                            System.out.println(depart);
-                                
-                            setMap(depart);
+			    while (depart != arriveOne && depart != arriveTwo) {
+				if (!running) {
+				    break;
+				}
 
-                            arrive = Dijstra.findeBestWay2(graph, depart);
-                            while (arrive.previous.previous != null) {
+				graph.initEdge();
 
-                                arrive = arrive.previous;
+				System.out.println(depart);
 
+				setMap(depart);
 
-                            }
+				arrive = Dijstra.findeBestWay2(graph, depart);
+				while (arrive.previous.previous != null) {
 
-                            arrive.previous = null;
-                            depart = arrive;
+				    arrive = arrive.previous;
 
-                            revalidate();
+				}
 
-                            try {
-                                TimeUnit.MILLISECONDS.sleep(speed);
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-                    }
-                };
-                t.setDaemon(true);
-                t.start();
-                running = true;
-                jButton1.setText("Stop");
-                }
-               
+				arrive.previous = null;
+				depart = arrive;
+
+				i++;
+				jLabelValeurTours.setText(Integer.toString(i));
+				revalidate();
+
+				try {
+				    TimeUnit.MILLISECONDS.sleep(speed);
+				} catch (InterruptedException ex) {
+				    Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			    }
+			}
+		    };
+		    t.setDaemon(true);
+		    t.start();
+		    running = true;
+		    jButton1.setText("Stop");
+		}
+
 	    }
 	});
+
+	jLabelDeplacements.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelDeplacements.setText("Déplacements");
+
+	jLabelValeurDeplacements.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelValeurDeplacements.setText("0");
+
+	jLabelTours.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelTours.setText("Tours");
+
+	jLabelValeurTours.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelValeurTours.setText("0");
+
+	jLabelSourisEnDeplacement.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelSourisEnDeplacement.setText("Souris en déplacement");
+
+	jLabelValeurSourisEnDeplacement.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelValeurSourisEnDeplacement.setText("0");
+
+	jLabelSourisArrivees.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelSourisArrivees.setText("Souris arrivées");
+
+	jLabelValeurSourisArrivees.setFont(new java.awt.Font("Tahoma", 0, 14));
+	jLabelValeurSourisArrivees.setText("0");
 
 	jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 	jLabel1.setText("Porte 1");
@@ -169,6 +200,22 @@ public class Fenetre extends javax.swing.JFrame {
 		jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
 			.addContainerGap(582, Short.MAX_VALUE)
+			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addComponent(jLabelTours, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addComponent(jLabelValeurTours, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+			.addGap(36, 36, 36)
+			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addComponent(jLabelDeplacements, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addComponent(jLabelValeurDeplacements, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+			.addGap(36, 36, 36)
+			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addComponent(jLabelValeurSourisEnDeplacement, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addComponent(jLabelSourisEnDeplacement, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+			.addGap(36, 36, 36)
+			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addComponent(jLabelValeurSourisArrivees, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addComponent(jLabelSourisArrivees, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+			.addGap(66, 66, 66)
 			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
 				.addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
 				.addComponent(jTextField1))
@@ -189,11 +236,19 @@ public class Fenetre extends javax.swing.JFrame {
 		.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
 			.addContainerGap(24, Short.MAX_VALUE)
 			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addComponent(jLabelDeplacements, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabelSourisArrivees, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabelSourisEnDeplacement, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabelTours, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 				.addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 				.addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 				.addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 			.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+				.addComponent(jLabelValeurDeplacements, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabelValeurSourisArrivees, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabelValeurSourisEnDeplacement, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabelValeurTours, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 				.addComponent(jTextField3)
 				.addComponent(jTextField1)
 				.addComponent(jTextField2)
@@ -291,7 +346,7 @@ public class Fenetre extends javax.swing.JFrame {
 		}
 		labels[j] = new JLabel(grassIcon);
 		jPanel1.add(labels[j]);
-		
+
 		j++;
 		x++;
 	    } else {
@@ -301,6 +356,14 @@ public class Fenetre extends javax.swing.JFrame {
 	}
     }
 
+    private javax.swing.JLabel jLabelValeurDeplacements;
+    private javax.swing.JLabel jLabelValeurSourisEnDeplacement;
+    private javax.swing.JLabel jLabelValeurSourisArrivees;
+    private javax.swing.JLabel jLabelValeurTours;
+    private JLabel jLabelSourisArrivees;
+    private JLabel jLabelSourisEnDeplacement;
+    private JLabel jLabelDeplacements;
+    private JLabel jLabelTours;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -312,5 +375,5 @@ public class Fenetre extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private static Map carte;
     private static boolean running;
-    private static  Thread t;
+    private static Thread t;
 }
