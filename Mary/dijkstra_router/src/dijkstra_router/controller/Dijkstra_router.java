@@ -9,6 +9,7 @@ import dijkstra_router.model.Dijstra;
 import dijkstra_router.model.GenericNode;
 import dijkstra_router.model.Graph;
 import dijkstra_router.view.Fenetre;
+import java.util.concurrent.TimeUnit;
 import javax.swing.SwingUtilities;
 
 /**
@@ -56,45 +57,17 @@ public class Dijkstra_router {
 	 //for(int i = 0; i < path.size(); i++)
 	 //  System.out.println("Lieux : "+ path.get(i)+ " ditance : "+path.get(i).getDistance());
 	 */
+	
 	Runnable r = new Runnable() {
 	    @Override
 	    public void run() {
-		Graph graph = new Graph();
-
+		Fenetre tmp = null;
 		Fenetre monUI = new Fenetre();
 		monUI.pack();
 		// centrage sur l'écran
 		monUI.setLocationRelativeTo(null);
 		monUI.setVisible(true);
-
-		graph.initGraph("/Users/Suiken/Documents/Projets/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/map.txt");
-		int i = 0;
-		GenericNode depart = graph.getNode("5:16");
-		GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("43:1"), arrive = null;
-		arriveOne.setValue("Sortie");
-		arriveTwo.setValue("Sortie");
-
-		while (depart != arriveOne && depart != arriveTwo) {
-		    graph.initEdge();
-		    
-		    System.out.println(depart);
-		    monUI.setMap(depart);
-		    try{
-			monUI.wait(10000);
-		    }catch(Exception e){
-			System.out.println(e.getMessage());
-		    }
-		    arrive = Dijstra.findeBestWay2(graph, depart);
-		    while (arrive.previous.previous != null) {
-
-			arrive = arrive.previous;
-
-		    }
-
-		    arrive.previous = null;
-		    depart = arrive;
-
-		}
+		
 
 	    }
 	};

@@ -5,9 +5,17 @@
  */
 package dijkstra_router.view;
 
+import dijkstra_router.model.Dijstra;
 import dijkstra_router.model.GenericNode;
+import dijkstra_router.model.Graph;
 import dijkstra_router.model.Map;
+import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,13 +26,11 @@ import javax.swing.JPanel;
  */
 public class Fenetre extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Fenetre
-     */
     public Fenetre() {
+	jPanel1 = new JPanel(new GridLayout(19, 48, 0, 0));
 	//carte = new Map();
-	
 	setMap(null);
+
 	initComponents();
     }
 
@@ -71,6 +77,46 @@ public class Fenetre extends javax.swing.JFrame {
 
 	jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 	jButton1.setText("Lancer");
+	jButton1.addMouseListener(new MouseAdapter() {
+	    public void mousePressed(MouseEvent e) {
+		Graph graph = new Graph();
+
+		graph.initGraph("/Users/Suiken/Documents/Projets/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/map.txt");
+		int i = 0;
+		GenericNode depart = graph.getNode("5:16");
+		GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("43:1"), arrive = null;
+		arriveOne.setValue("Sortie");
+		arriveTwo.setValue("Sortie");
+
+		while (depart != arriveOne && depart != arriveTwo) {
+		    graph.initEdge();
+
+		    System.out.println(depart);
+		    
+		    setMap(depart);
+
+		    arrive = Dijstra.findeBestWay2(graph, depart);
+		    while (arrive.previous.previous != null) {
+
+			arrive = arrive.previous;
+			
+
+		    }
+
+		    arrive.previous = null;
+		    depart = arrive;
+		    
+		    revalidate();
+		    
+		    try {
+			TimeUnit.SECONDS.sleep(2);
+		    } catch (InterruptedException ex) {
+			Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
+		    }
+		}
+
+	    }
+	});
 
 	jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 	jLabel1.setText("Porte 1");
@@ -142,56 +188,80 @@ public class Fenetre extends javax.swing.JFrame {
 	// TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    public void setMap(GenericNode souris) {
-
-	carte = new Map();
-	if(jPanel1 != null){
-	    this.remove(jPanel1);
+    public void deplacerSouris(GenericNode souris) {
+	Component c[] = jPanel1.getComponents();
+	int i = 0, x = 0, y = 0;
+	for (Component comp : c) {
+	    JLabel temp = (JLabel) comp;
+	    if (souris != null) {
+		String s = x + ":" + y;
+		System.out.println(s);
+		if (souris.getKey().equals(s)) {
+		    ImageIcon grassIcon = new ImageIcon("./images/souris.png");
+		    temp = new JLabel(grassIcon);
+		    System.out.println("trouvé");
+		    break;
+		}
+	    }
+	    i++;
+	    x++;
+	    if (x > 47) {
+		x = 0;
+		y++;
+	    }
+	    System.out.println(i);
 	}
-	jPanel1 = new JPanel(new GridLayout(19, 48, 0, 0));
+    }
+
+    public void setMap(GenericNode souris) {
+	if (jPanel1 != null) {
+	    jPanel1.removeAll();
+	}
+	carte = new Map();
 	JLabel labels[] = new JLabel[(19 * 48)];
 	String bufferMap = carte.lire("./ressources/map.txt");
 
 	int x = 0, y = 0;
 
 	for (int i = 0, j = 0; i < bufferMap.length(); i++) {
+	    ImageIcon grassIcon = null;
 	    if (bufferMap.charAt(i) != '\n') {
 		if (bufferMap.charAt(i) == '*') {
-		    ImageIcon grassIcon = new ImageIcon("./images/mur.png");
+		    grassIcon = new ImageIcon("./images/mur.png");
 		    labels[j] = new JLabel(grassIcon);
 		}
 		if (bufferMap.charAt(i) == ' ' || bufferMap.charAt(i) == 'P') {
-		    ImageIcon grassIcon = new ImageIcon("./images/sol.png");
+		    grassIcon = new ImageIcon("./images/sol.png");
 		    labels[j] = new JLabel(grassIcon);
 		}
 		if (bufferMap.charAt(i) == 'A') {
-		    ImageIcon grassIcon = new ImageIcon("./images/arrive.png");
+		    grassIcon = new ImageIcon("./images/arrive.png");
 		    labels[j] = new JLabel(grassIcon);
 		}
 		if (bufferMap.charAt(i) == 'G') {
-		    ImageIcon grassIcon = new ImageIcon("./images/herbe.png");
+		    grassIcon = new ImageIcon("./images/herbe.png");
 		    labels[j] = new JLabel(grassIcon);
 		}
 		if (bufferMap.charAt(i) == 'D') {
-		    ImageIcon grassIcon = new ImageIcon("./images/porte.png");
+		    grassIcon = new ImageIcon("./images/porte.png");
 		    labels[j] = new JLabel(grassIcon);
 		}
 		if (souris != null) {
 		    String s = x + ":" + y;
 		    if (souris.getKey().equals(s)) {
-			ImageIcon grassIcon = new ImageIcon("./images/souris.png");
+			grassIcon = new ImageIcon("./images/souris.png");
 			labels[j] = new JLabel(grassIcon);
 		    }
 		}
+		labels[j] = new JLabel(grassIcon);
 		jPanel1.add(labels[j]);
-
+		
 		j++;
 		x++;
 	    } else {
 		y++;
 		x = 0;
 	    }
-	    initComponents();
 	}
     }
 
