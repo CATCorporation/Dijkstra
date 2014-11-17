@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Developpement/Workspace/Java/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/LinkedPriorityQueue.java</file>
-            <file>file:/C:/Developpement/Workspace/Java/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/Dijstra.java</file>
-            <file>file:/C:/Developpement/Workspace/Java/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/Graph.java</file>
-            <file>file:/C:/Developpement/Workspace/Java/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/GenericNode.java</file>
-            <file>file:/C:/Developpement/Workspace/Java/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/Distance.java</file>
-            <file>file:/C:/Developpement/Workspace/Java/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/map.txt</file>
-            <file>file:/C:/Developpement/Workspace/Java/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/Dijkstra_router.java</file>
+            <file>file:/C:/Users/626/Documents/GitHub/Dijkstra/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/model/Dijstra.java</file>
+            <file>file:/C:/Users/626/Documents/GitHub/Dijkstra/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/controller/Dijkstra_router.java</file>
+            <file>file:/C:/Users/626/Documents/GitHub/Dijkstra/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/view/Fenetre.java</file>
+            <file>file:/C:/Users/626/Documents/GitHub/Dijkstra/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/model/Graph.java</file>
+            <file>file:/C:/Users/626/Documents/GitHub/Dijkstra/Dijkstra/Mary/dijkstra_router/src/dijkstra_router/model/GenericNode.java</file>
         </group>
     </open-files>
 </project-private>

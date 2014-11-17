@@ -253,8 +253,10 @@ public class Fenetre extends javax.swing.JFrame {
                                 arrivees ++;
                                 jLabelValeurSourisArrivees.setText(Integer.toString(arrivees));
                                 actuel --;
+                                if(nbSourisG > 1) {
                                 move --;
                                 listUsed.remove(listUsed.get(move));
+                                }
                                 listSouris.remove(depart);
                                 setMap(listSouris);
                                 revalidate();
