@@ -36,9 +36,6 @@ public class Dijstra {
         for(GenericEdge e : temp.getPile()){
                 System.out.println(e);
             }
-        
-        
-        
     }
     
     public static GenericNode findeBestWay2(Graph g, GenericNode start){
@@ -63,11 +60,11 @@ public class Dijstra {
                    current = log.get(temp);
             }
             
-            if( other.getDistance() > ( current.getDistance() +temp.getAttribute().getValue() ) )  {                 
-                other.setDistance(temp.getAttribute().getValue()+current.getDistance());
-                //System.out.println(" bonnnnnnnnnnn --> "+other + " valeur " + other.getDistance());
-                //System.out.println("distance " + other.getDistance());
-                other.previous = current;
+            if( other.getDistance() > ( current.getDistance() +temp.getAttribute().getValue() ) ){                 
+                if(other.isActif() == false){
+                    other.setDistance(temp.getAttribute().getValue()+current.getDistance());                
+                    other.previous = current;
+                }
            }
             current.getEdges().remove(temp);
             current = temp.getOther(current);
@@ -77,11 +74,14 @@ public class Dijstra {
             if(current.getValue().equals("Sortie")){
                 res = current;
             }
-            System.out.println("i :" + i);
+           // System.out.println("i :" + i);
             i++;
-            //System.out.println("?");
+          if(i  > 5000)
+              return null;
             
-        }        
-        return res;
+        }   
+        System.out.println("i :" + i);
+    return res;
     }
+    
 }

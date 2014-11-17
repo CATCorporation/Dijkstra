@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class Graph{
 
-	private HashMap<String, GenericNode> map = new HashMap<String, GenericNode>();
+	protected HashMap<String, GenericNode> map = new HashMap<String, GenericNode>();
 	
 	public Graph(){
 		
@@ -61,53 +61,58 @@ public class Graph{
             }
         }
         
-        public void initEdge(){
-            int x = 0;
+        public void initEdge(String key){
+            int x = 0,maxX = 48;
             int y = 0;
             GenericNode node, verNode, horNode, botNode,leftNode;
-            while(x < 48){
+            
+            try{
+                maxX = Integer.parseInt(key.split(":")[0]);
+                if( maxX < 6 )
+                    maxX = 10;
+                else if( maxX < 8 )
+                    maxX = 12;
+                else if( maxX < 10 )
+                    maxX = 14;
+                else if( maxX < 12 )
+                    maxX = 18;
+                else if( maxX < 10 )
+                    maxX = (48/2);
+                else
+                    maxX = 48 ; 
+                              
+            }catch(NumberFormatException e){
+                e.printStackTrace();
+            }
+            while(x < maxX){
                 y=0;
                 while(y < 18){
                     node = this.getNode(x+":"+y);
-                    if(!node.getValue().equals("wall") && !node.isActive()){
-                        
-                        horNode = this.getNode((x-1)+":"+y);
-                        verNode = this.getNode(x+":"+(y-1));
-                        leftNode = this.getNode((x+1)+":"+y);
-                        botNode = this.getNode(x+":"+(y+1));
-                        
-                        if(horNode != null){
-                            if(!horNode.getValue().equals("wall") ){
-                                //if(horNode.isActive() )
-                                    //System.out.println("trouve horizontale x "+x +" y" +y+ "    " + horNode.isActive());
-                                if(horNode.getValue().equals("grass"))
-                                    new GenericEdge(node, horNode, new Distance(2));
-                                else
-                                    new GenericEdge(node, horNode, new Distance(1)); 
-                                //System.out.println("je créer un edge entre " + node + " et " + horNode);
+                    if(node != null){
+                        if(!node.getValue().equals("wall")){
+
+                            horNode = this.getNode((x-1)+":"+y);
+                            verNode = this.getNode(x+":"+(y-1));
+                            leftNode = this.getNode((x+1)+":"+y);
+                            botNode = this.getNode(x+":"+(y+1));
+
+                            if(horNode != null){
+                                if(!horNode.getValue().equals("wall")){
+                                    if(horNode.getValue().equals("grass"))
+                                        new GenericEdge(node, horNode, new Distance(2));
+                                    else
+                                        new GenericEdge(node, horNode, new Distance(1)); 
+                                }
                             }
-                        }
-                        if(botNode != null){
-                            if(!botNode.getValue().equals("wall") ){
-                                //if(horNode.isActive() )
-                                    //System.out.println("trouve horizontale x "+x +" y" +y+ "    " + horNode.isActive());
-                                if(botNode.getValue().equals("grass"))
-                                    new GenericEdge(node, botNode, new Distance(2));
-                                else
-                                    new GenericEdge(node, botNode, new Distance(1)); 
-                                //System.out.println("je créer un edge entre " + node + " et " + horNode);
-                            }
-                        }
-                        if(leftNode != null){
-                            if(!leftNode.getValue().equals("wall")){
-                                 //if(verNode.isActive() )
-                                    //System.out.println("trouve verticale x "+x +" y" +y+ "    " + verNode.isActive());
-                                if(leftNode.getValue().equals("grass"))
-                                    new GenericEdge(node, leftNode, new Distance(2));
-                                else
-                                    new GenericEdge(node, leftNode, new Distance(1));                        
-                                //System.out.println("je créer un edge entre " + node + " et " + verNode);
-                            }
+
+                            if(verNode != null){
+                                if(!verNode.getValue().equals("wall")){
+                                    if(verNode.getValue().equals("grass"))
+                                        new GenericEdge(node, verNode, new Distance(2));
+                                    else
+                                        new GenericEdge(node, verNode, new Distance(1)); 
+                                }
+                            }                        
                         }
                     }
                     y++;
@@ -142,16 +147,11 @@ public class Graph{
 	}
         
         public void checkEntry(){
-            HashMap<String, GenericNode> map2 = new HashMap<String, GenericNode>();
             GenericNode nodes = null;
             for(String s : map.keySet()){
-                nodes = map.get(s);
-                if(nodes.isActive()) {
-                   nodes.setDistance(20);
-                    System.out.println(nodes.isActive());
-                }
-                else
-                    nodes.setDistance(Double.POSITIVE_INFINITY);
+                nodes = map.get(s);                
+                nodes.setDistance(Double.POSITIVE_INFINITY);
+                
             }
         }
         

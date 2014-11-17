@@ -1,14 +1,13 @@
 package dijkstra_router.model;
 
-import dijkstra_router.model.LinkSimple;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 
 public class LinkedPriorityQueue{
 
-	private ArrayList<Object> list = new ArrayList<Object>();
-	private Comparator c;
+	private final ArrayList<Object> list = new ArrayList<Object>();
+	private final Comparator c;
 	
 	
 	public LinkedPriorityQueue(Comparator c){

@@ -113,13 +113,14 @@ public class Fenetre extends javax.swing.JFrame {
                         graph.initGraph("./ressources/map.txt");
                         
                         // init vitesse de jeu 
-                        int speed = 500;
+                        int speed = 300;
                         try{
                             speed = Integer.parseInt(vitesse);
-                            if(speed < 350)
-                                speed = 350;
+                            if(speed < 300)
+                                speed = 300;
                         }catch (NumberFormatException e){
                             System.out.println("vitesse incorrecte");
+                            jTextField3.setText("300");
                         }
                         
                         // init souris gauche 
@@ -127,7 +128,7 @@ public class Fenetre extends javax.swing.JFrame {
                          try{
                             nbSourisG = Integer.parseInt(jTextField1.getText());                           
                         }catch (NumberFormatException e){
-                            System.out.println("vitesse incorrecte");
+                            System.out.println("Pas de soruis entrée");
                         }
                         for(int i = 0,j = 0; i < nbSourisG; i++){
                             GenericNode souris = null;
@@ -146,48 +147,78 @@ public class Fenetre extends javax.swing.JFrame {
                         }                               
                         
                         int i = 0,actuel = 0, arrivees = 0, move = 0;
-                        GenericNode depart = null;
+                        GenericNode depart = null, save = null;
                         GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("43:1"), arrive = null;
                         arriveOne.setValue("Sortie");
                         arriveTwo.setValue("Sortie");
-
+                        Chaine listUsed = new Chaine();
+                        boolean reset = false;
                         while(!listSouris.isEmpty()){
                             if(!running)
                                 break;
                             depart = listSouris.get(actuel);
                             while (depart != arriveOne && depart != arriveTwo) {
                                 if(!running)                           
-                                    break;    
-                                                                
-                                if( nbSourisG > 1 )  { graph.checkEntry(); }
-                                graph.initEdge();  
+                                    break;  
                                 
-                                System.out.println("souris : "+actuel+" position : "+depart);
-                                  
-                                arrive = Dijstra.findeBestWay2(graph, depart);
+                                if(depart.getValue().equals("grass") && !depart.isHerbe()){
+                                    depart.setHerbe(true);
+                                    i++;
+                                    actuel++;
+                                     if( actuel == listSouris.size())
+                                        actuel=0;
+                                    break;
+                                }
                                 
+                               //depart.setActif(false);
                                 
+                                graph.initEdge(depart.getKey());  
+                                
+                                System.out.println("souris "+actuel+" position : "+depart.getKey());
+                               
+                                arrive = Dijstra.findeBestWay2(graph, depart);                             
+                                if(arrive == null){
+                                    i++;
+                                    actuel++;
+                                     if( actuel == listSouris.size()){
+                                          actuel =0;
+                                          move = 0;
+                                        if ( reset ){
+                                            reset = false;
+                                            listUsed.clear();
+                                        }
+                                        else 
+                                            reset = true;
+                                     }
+                                    break;
+                                }
                                 while (arrive.previous.previous != null && !arrive.previous.getKey().equals(depart.getKey())) {
-                                    arrive = arrive.previous;                                  
-                                        System.out.println("liste point :" + arrive);
+                                    arrive = arrive.previous;
+                                  
+                                        //System.out.println("liste point :" + arrive);
                                 }
                                 
                                 System.out.println("souris : "+actuel+" va a  : "+arrive);
-                                arrive.previous.setDistance(80000); //= null;
+                                if(reset == true)
+                                    listUsed.get(move).setActif(false);
+                                else{
+                                    listUsed.push(arrive.previous);
+                                }
+                                System.out.println("precedant : "+arrive.previous+" actuel : "+arrive);
+                                //arrive.previous = null;
                                 
-                                depart = arrive;                                
+                               
+                                arrive.setActif(true);
+                                
+                                graph.checkEntry();
+                                
+                                depart = arrive;        
+                                
                                 listSouris.set(actuel, depart);
                                 
                                 setMap(listSouris);
                                 
                                 revalidate();
-                                
-                                if(depart.getValue().equals("grass"))
-                                     try {
-                                    TimeUnit.MILLISECONDS.sleep(speed);
-                                    } catch (InterruptedException ex) {
-                                        Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
                                 
                                 try {
                                     TimeUnit.MILLISECONDS.sleep(speed);
@@ -196,30 +227,38 @@ public class Fenetre extends javax.swing.JFrame {
                                 }
                                 i++;
                                 jLabelValeurTours.setText(Integer.toString(i));
-                                jLabelSourisEnDeplacement.setText(Integer.toString(listSouris.size()));
+                                jLabelValeurSourisEnDeplacement.setText(Integer.toString(listSouris.size()));
+                               // jLabelValeurDeplacements.setText(Integer.toString(actuel));
                                 
-                                if( i > (listSouris.size()) ) {
                                     actuel++;
-
-
-                                    if( actuel == listSouris.size())
-                                        actuel=0;
+                                    move++;
+                                    
+                                    if( actuel == listSouris.size()){
+                                        actuel = 0;
+                                        move = 0;
+                                        if ( reset ){
+                                            reset = false;
+                                            listUsed.clear();
+                                        }
+                                        else 
+                                            reset = true;
+                                    }
                                     //System.out.println("actuel: "+actuel);
                                     break;
-                                }
+                                
                             }
-                            
                             
                             if(depart == arriveOne || depart == arriveTwo){
                                 System.out.println("supprime");
                                 arrivees ++;
-                                jLabelSourisArrivees.setText(Integer.toString(arrivees));
+                                jLabelValeurSourisArrivees.setText(Integer.toString(arrivees));
                                 actuel --;
+                                move --;
+                                listUsed.remove(listUsed.get(move));
                                 listSouris.remove(depart);
                                 setMap(listSouris);
                                 revalidate();
-                            }                                
-                            
+                            }      
                         }
                         System.out.println("fini");
                         try {

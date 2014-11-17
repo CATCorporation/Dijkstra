@@ -12,24 +12,25 @@ public class GenericNode{
     private double distance = Double.POSITIVE_INFINITY;
     private Mouse mouse = null;
     public GenericNode previous;
-    private int libre = 0;
-    private boolean active = false;
+    private boolean herbe = false;
+    private boolean actif = false;
 
-    public boolean isActive() {
-        return active;
+    public boolean isActif() {
+        return actif;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setActif(boolean actif) {
+        this.actif = actif;
     }
 
-    public int getLibre() {
-        return libre;
+    public boolean isHerbe() {
+        return herbe;
     }
 
-    public void setLibre(int libre) {
-        this.libre = libre;
+    public void setHerbe(boolean herbe) {
+        this.herbe = herbe;
     }
+    
     
     public Mouse getMouse() {
         return mouse;
