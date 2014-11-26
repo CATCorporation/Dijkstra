@@ -7,6 +7,7 @@ package dijkstra_router.view;
 
 import dijkstra_router.model.Chaine;
 import dijkstra_router.model.Dijstra;
+import dijkstra_router.model.GenericEdge;
 import dijkstra_router.model.GenericNode;
 import dijkstra_router.model.Graph;
 import dijkstra_router.model.Map;
@@ -16,6 +17,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -150,31 +152,40 @@ public class Fenetre extends javax.swing.JFrame {
                         GenericNode arriveOne = graph.getNode("5:2"), arriveTwo = graph.getNode("43:1"), arrive = null;
                         arriveOne.setValue("Sortie");
                         arriveTwo.setValue("Sortie");
-
+                        
+                        ArrayList<GenericNode> nodeActives = new ArrayList<GenericNode>();
+                        //nodeActives.add(graph.getNode("6:13"));
                         while(!listSouris.isEmpty()){
+                            
                             if(!running)
                                 break;
                             depart = listSouris.get(actuel);
+                            System.err.println("depart : " + arrive);
                             while (depart != arriveOne && depart != arriveTwo) {
                                 if(!running)                           
                                     break;    
                                                                 
                                 if( nbSourisG > 1 )  { graph.checkEntry(); }
                                 graph.initEdge();  
-                                
-                                System.out.println("souris : "+actuel+" position : "+depart);
-                                  
+                                //System.err.println(graph.getNode("6:10").getEdges().size());
+                                //System.out.println("souris : "+actuel+" position : "+depart);
+                                nodeActives.remove(depart);
+                                for(GenericNode n : nodeActives){
+                                    //System.err.println(n);
+                                    n.getEdges().removeAll(n.getEdges());
+                                }
                                 arrive = Dijstra.findeBestWay2(graph, depart);
+                                
                                 
                                 
                                 while (arrive.previous.previous != null && !arrive.previous.getKey().equals(depart.getKey())) {
                                     arrive = arrive.previous;                                  
-                                        System.out.println("liste point :" + arrive);
                                 }
                                 
-                                System.out.println("souris : "+actuel+" va a  : "+arrive);
+                                //System.out.println("souris : "+actuel+" va a  : "+arrive);
                                 arrive.previous.setDistance(80000); //= null;
-                                
+                                nodeActives.add(arrive);
+                                System.err.println("arrivé : " + arrive);
                                 depart = arrive;                                
                                 listSouris.set(actuel, depart);
                                 
@@ -211,7 +222,7 @@ public class Fenetre extends javax.swing.JFrame {
                             
                             
                             if(depart == arriveOne || depart == arriveTwo){
-                                System.out.println("supprime");
+                                //System.out.println("supprime");
                                 arrivees ++;
                                 jLabelSourisArrivees.setText(Integer.toString(arrivees));
                                 actuel --;
@@ -221,7 +232,7 @@ public class Fenetre extends javax.swing.JFrame {
                             }                                
                             
                         }
-                        System.out.println("fini");
+                        //System.out.println("fini");
                         try {
                             Thread.sleep(1000); 
                             //t.interrupt();                        
@@ -374,7 +385,7 @@ public class Fenetre extends javax.swing.JFrame {
 		if (souris.getKey().equals(s)) {
 		    ImageIcon grassIcon = new ImageIcon("./images/souris.png");
 		    temp = new JLabel(grassIcon);
-		    System.out.println("trouvé");
+		    //System.out.println("trouvé");
 		    break;
 		}
 	    }

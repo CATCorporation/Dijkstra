@@ -42,27 +42,35 @@ public class Dijstra {
     }
     
     public static GenericNode findeBestWay2(Graph g, GenericNode start){
+        //System.out.println("-------------------------------------");
         @SuppressWarnings("Convert2Diamond")
         HashMap<GenericEdge, GenericNode> log;
         log = new HashMap<GenericEdge, GenericNode>();
         GenericNode res = null, other, current = start;
         current.setDistance(0);
-        int i = 0;
+        GenericEdge temp;
         LinkedPriorityQueue queue = new LinkedPriorityQueue(new ComparatorDistance());
-        while(res == null){            
+        while(res == null){ 
+            
             for(GenericEdge edge : (List<GenericEdge>) current.getEdges()){
-                if(edge.getOther(current).getMouse() == null){
                     edge.setAttribute((int) current.getDistance());
                     queue.add(edge);
                     log.put(edge, current);
-                }
+                
             }
-            GenericEdge temp = (GenericEdge) queue.remove();
-            while((other = temp.getOther(current)) == null){               
-               
-                   current = log.get(temp);
-            }
+            int i = 0;
+            temp = (GenericEdge) queue.remove();
             
+            free : while(true){
+                current = log.get(temp);
+                other = temp.getOther(current);
+                if(other.isActive() == false)
+                    break free;
+                else
+                    temp = (GenericEdge) queue.remove();
+                
+            }
+            //System.err.println("Current " + current + " temp " + temp + " other " + other);
             if( other.getDistance() > ( current.getDistance() +temp.getAttribute().getValue() ) )  {                 
                 other.setDistance(temp.getAttribute().getValue()+current.getDistance());
                 //System.out.println(" bonnnnnnnnnnn --> "+other + " valeur " + other.getDistance());
@@ -72,13 +80,12 @@ public class Dijstra {
             current.getEdges().remove(temp);
             current = temp.getOther(current);
             current.getEdges().remove(temp);
-            if(current.getValue().equals("13:6"))
-                System.out.println("5 trouvé");
+            //System.err.println("Current arrivé" + current);
+
             if(current.getValue().equals("Sortie")){
                 res = current;
             }
-            System.out.println("i :" + i);
-            i++;
+            //System.out.println("i :" + i);
             //System.out.println("?");
             
         }        

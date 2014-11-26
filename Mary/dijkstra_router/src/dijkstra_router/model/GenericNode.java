@@ -10,7 +10,6 @@ public class GenericNode{
     private String key;
     private String value;
     private double distance = Double.POSITIVE_INFINITY;
-    private Mouse mouse = null;
     public GenericNode previous;
     private int libre = 0;
     private boolean active = false;
@@ -29,14 +28,6 @@ public class GenericNode{
 
     public void setLibre(int libre) {
         this.libre = libre;
-    }
-    
-    public Mouse getMouse() {
-        return mouse;
-    }
-
-    public void setMouse(Mouse mouse) {
-        this.mouse = mouse;
     }
     
     public double getDistance() {

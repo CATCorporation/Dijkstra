@@ -78,6 +78,7 @@ public class Graph{
                         
                         if(horNode != null){
                             if(!horNode.getValue().equals("wall") ){
+                                //System.err.println("node lié" + horNode);
                                 //if(horNode.isActive() )
                                     //System.out.println("trouve horizontale x "+x +" y" +y+ "    " + horNode.isActive());
                                 if(horNode.getValue().equals("grass"))
