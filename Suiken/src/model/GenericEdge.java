@@ -9,13 +9,13 @@ public class GenericEdge{
 
 	private HashMap<String,Object> attributes = new HashMap<String, Object>();
 	private GenericNode nodeOne, nodeTwo;
-        private Distance value;
-        private ArrayList<GenericEdge> pile = new ArrayList<GenericEdge>();
+    private Distance value;
+    private ArrayList<GenericEdge> pile = new ArrayList<GenericEdge>();
 	
 	public GenericEdge(){
 		
 	}
-
+	
 	public GenericEdge(GenericNode node1,
 			GenericNode node2, Distance value) {
 		// TODO Auto-generated constructor stub
@@ -26,6 +26,14 @@ public class GenericEdge{
 		this.nodeTwo.getEdges().add(this);
 	}
 
+	public GenericNode getNodeOne(){
+		return nodeOne;
+	}
+	
+	public GenericNode getNodeTwo(){
+		return nodeTwo;
+	}
+	
 	public Distance getAttribute() {
 		// TODO Auto-generated method stub
 		return value;
@@ -58,6 +66,15 @@ public class GenericEdge{
     @Override
     public String toString() {
         return nodeOne + " - " + nodeTwo;
+    }
+    
+    public GenericNode getNodeWithPrevious(){
+    	if(nodeOne.getPrevious() != null){
+    		return nodeOne;
+    	}else if(nodeTwo.getPrevious() != null){
+    		return nodeTwo;
+    	}
+    	return null;
     }
 
 }

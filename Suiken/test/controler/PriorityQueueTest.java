@@ -67,6 +67,15 @@ public class PriorityQueueTest {
 	queue.push(new Element(new GenericEdge(new GenericNode("5:5"), new GenericNode("6:6"), new Distance(2))));
 	assertTrue(queue.pop().getValue().toString().equals("4:4 - 5:5"));
 	
+	setUp();
+	
+	queue.push(new Element(new GenericEdge(new GenericNode("6:6"), new GenericNode("7:7"), new Distance(5))));
+	queue.pop();
+	queue.pop();
+	queue.pop();
+	queue.pop();
+	assertTrue(queue.pop().getValue().toString().equals("0:0 - 1:1"));
+	assertTrue(queue.pop().getValue().toString().equals("6:6 - 7:7"));
     }
 
     /**

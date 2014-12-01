@@ -120,7 +120,11 @@ public class Application {
 //	}
 //	System.out.println("Je suis arrivé");
 	
-	Dijkstra.findBestWay(graph, graph.getNode("5:17"));
-	System.out.println("trouvé !");
+		try {
+			Dijkstra.findBestWay(graph, graph.getNode("5:17"));
+			System.out.println("trouv� !");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
     }
 }
