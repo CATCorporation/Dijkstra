@@ -1,17 +1,10 @@
 package model;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author Suiken
- */
+import model.GenericEdge;
+
 public class Element{
 
-    Object value;
+    GenericEdge value;
     Element nextElement = null;
     
     public Element(){}
@@ -20,7 +13,7 @@ public class Element{
 	value = e.getValue();
     }
 
-    public Element(Object value) {
+    public Element(GenericEdge value) {
         this.value = value;
     }
 
@@ -32,7 +25,7 @@ public class Element{
         this.nextElement = nextElement;
     }
 
-    public Object getValue() {
+    public GenericEdge getValue() {
         return value;
     }
 }

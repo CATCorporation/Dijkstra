@@ -1,36 +1,63 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+
+
 
 public class GenericEdge{
+
+	private HashMap<String,Object> attributes = new HashMap<String, Object>();
+	private GenericNode nodeOne, nodeTwo;
+        private Distance value;
+        private ArrayList<GenericEdge> pile = new ArrayList<GenericEdge>();
 	
-	private GenericNode node1 = null;
-	private GenericNode node2 = null;
-	private Map<String,Object> attributes = new HashMap<String,Object>();
-	
-	public GenericEdge(GenericNode node1, GenericNode node2, Object o) {
-		this.node1 = node1;
-		this.node2 = node2;
+	public GenericEdge(){
 		
-		node1.getEdges().add(this);
-		node2.getEdges().add(this);
-		
-		attributes.put("cost", o);
 	}
 
-	public Object getAttribute(String key) {
-		return attributes.get(key);
+	public GenericEdge(GenericNode node1,
+			GenericNode node2, Distance value) {
+		// TODO Auto-generated constructor stub
+		this.nodeOne = node1;
+		this.nodeTwo = node2;
+		this.value = value;
+		this.nodeOne.getEdges().add(this);
+		this.nodeTwo.getEdges().add(this);
 	}
 
+	public Distance getAttribute() {
+		// TODO Auto-generated method stub
+		return value;
+	}
+
+	
 	public GenericNode getOther(GenericNode node) {
-		if(node1 == node) return node2;
-		if(node2 == node) return node1;
-		return null;
+		// TODO Auto-generated method stub
+		if(node == nodeOne)
+			return nodeTwo;
+		else if(node == nodeTwo)
+			return nodeOne;
+		else
+			return null;
+	
 	}
 
-	public void setAttribute(String string, Object o) {
-		attributes.put(string,o);
+	public void setAttribute(int Distance) {
+		// TODO Auto-generated method stub
+		value.addValue(Distance);
 	}
+
+        public void push(GenericEdge e){
+            pile.add(e);
+        }
+        
+        public ArrayList<GenericEdge> getPile(){
+            return pile;
+        }
+    @Override
+    public String toString() {
+        return nodeOne + " - " + nodeTwo;
+    }
 
 }

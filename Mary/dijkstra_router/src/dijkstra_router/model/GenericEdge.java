@@ -10,7 +10,7 @@ public class GenericEdge{
 	private HashMap<String,Object> attributes = new HashMap<String, Object>();
 	private GenericNode nodeOne, nodeTwo;
         private Distance value;
-        private ArrayList<GenericEdge> pile = new ArrayList<GenericEdge>();
+        private ArrayList<GenericEdge> pile = new ArrayList<>();
 	
 	public GenericEdge(){
 		

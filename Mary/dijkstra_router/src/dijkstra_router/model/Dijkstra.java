@@ -3,22 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dijkstra_router.model;
 
 /**
  *
- * @author Lucas
+ * @author Suiken
  */
-public class Mouse {
+public class Dijkstra {
     
-    private String name = "souris";
-    
-    public Mouse(String number ){
-        name = name+"_"+number;
-    }
-    public String getName() {
-        return name;
+    public static void findBestWay(Graph graph, GenericNode depart){
+	
     }
     
 }
