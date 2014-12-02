@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class Mouse {
     
     private GenericNode position;
-    private ArrayList<GenericNode> wayFound;
+    private GenericNode finishFound;
+    private boolean arrived = false;
     
     public Mouse(GenericNode start){
 	position = start;
@@ -28,12 +29,24 @@ public class Mouse {
 	this.position = position;
     }
     
-    public ArrayList<GenericNode> getWayfound(){
-	return wayFound;
+    public GenericNode getFinishFound(){
+	return finishFound;
     }
     
-    public void setWayFound(ArrayList<GenericNode> wayFound){
-	this.wayFound = wayFound;
+    public void setFinishFound(GenericNode finishFound){
+    	this.finishFound = finishFound;
+    }
+    
+    public GenericNode move(){
+    	GenericNode tmp = finishFound;
+    	while(tmp.getPrevious() != null){
+    		tmp = tmp.getPrevious();
+    		System.out.println(tmp.toString());
+    	}
+    	
+    	position = tmp;
+    	if(position.equals(finishFound)) arrived = true;
+    	return position;
     }
     
 }

@@ -6,6 +6,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 
@@ -18,10 +20,12 @@ public class Dijkstra {
 		// L'arrayList va représenter la position de chaque souris à la fin de l'algo
 		PriorityQueue queue = new PriorityQueue(new ComparatorDistance());
 		GenericNode currentNode = depart;
-		GenericNode lastNode;
+		GenericNode lastNode = null;
 
 		GenericEdge currentEdge = null;
 		GenericEdge lastEdge = null;
+		
+		EdgeList edgeUsed = new EdgeList();
 		
 		try {
 
@@ -37,9 +41,6 @@ public class Dijkstra {
 				// Je retire l'edge avec la plus petite distance pour en faire un chemin
 				currentEdge = queue.pop().getValue();
 				
-				System.out.println("edge à prendre : " + currentEdge.toString());
-				System.out.println("taille avant " + currentEdge.getAttribute().getValue());
-				
 				// Ici je cherche le noeud précédent s'il y en a un
 				if(currentEdge.getOther(depart) != null){
 					// le noeud d'après le départ
@@ -52,18 +53,26 @@ public class Dijkstra {
 						if(e.getOther(currentNode) != null) lastEdge = e;
 					}
 				}
-				currentNode.setPrevious(currentEdge.getOther(currentNode));
+				if(!edgeUsed.contains(lastEdge) || !edgeUsed.contains(currentEdge)){
+					currentNode.setPrevious(currentEdge.getOther(currentNode));
+				}
 
 				// Mise à jour de la distance
-				/*if (currentEdge.getOther(depart) == null) {
+				if (currentEdge.getOther(depart) == null && !edgeUsed.contains(lastEdge) && !edgeUsed.contains(currentEdge)) {
 					
 					currentNode.addDistance(lastEdge);
+					edgeUsed.add(currentEdge);
 					
-				}*/
-				
-				System.out.println("taille après " + currentEdge.getAttribute().getValue());
+					
+				}
+				if(!edgeUsed.contains(currentEdge)){
+					edgeUsed.add(currentEdge);
+				}
 				
 				currentNode.getEdges().remove(currentEdge);
+				if(lastNode != null){
+					lastNode.getEdges().remove(currentEdge);
+				}
 				
 			}
 			return currentNode;
@@ -71,7 +80,15 @@ public class Dijkstra {
 			System.out.println(e.getMessage());
 		}
 		return null;
-
+		
+	}
+	
+	public static ArrayList<Mouse> findBestWays(Graph graph, ArrayList<Mouse> mice){
+		for(Mouse m : mice){
+			m.setFinishFound(findBestWay(graph, m.getPosition()));
+			//System.out.println(findBestWay(graph, m.getPosition()).toString());
+		}
+		return mice;
 	}
 
 }

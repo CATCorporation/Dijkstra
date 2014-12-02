@@ -94,11 +94,11 @@ public class GenericNode {
 		if (!distanceModified) {
 			distance += edge.getAttribute().getValue();
 			for (GenericEdge e : edges) {
-				e.setAttribute(e.getAttribute().getValue() + edge.getAttribute().getValue());
+				e.setAttribute(1 + edge.getAttribute().getValue());
 			}
 			distanceModified = true;
 		}
-
+		
 	}
 
 	@Override

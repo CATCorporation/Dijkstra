@@ -1,8 +1,11 @@
 package controler;
 
+import java.util.ArrayList;
+
 import model.Dijkstra;
 import model.GenericNode;
 import model.Graph;
+import model.Mouse;
 
 
 /*
@@ -121,8 +124,15 @@ public class Application {
 //	System.out.println("Je suis arrivÃ©");
 	
 		try {
-			Dijkstra.findBestWay(graph, graph.getNode("5:17"));
-			System.out.println("trouvé !");
+			ArrayList<Mouse> mice = new ArrayList<>();
+			mice.add(new Mouse(graph.getNode("5:17")));
+
+			mice = Dijkstra.findBestWays(graph, mice);
+			
+			for(Mouse m : mice){
+				System.out.println(m.move().toString());
+			}
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

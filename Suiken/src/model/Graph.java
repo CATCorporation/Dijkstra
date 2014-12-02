@@ -113,8 +113,8 @@ public class Graph {
 	private void updateEdges(GenericNode horNode, GenericNode verNode,
 			GenericNode leftNode, GenericNode botNode, GenericNode node) {
 
-		//updateEdge(node, horNode);
-		//updateEdge(node, verNode);
+		updateEdge(node, horNode);
+		updateEdge(node, verNode);
 		updateEdge(node, leftNode);
 		updateEdge(node, botNode);
 
