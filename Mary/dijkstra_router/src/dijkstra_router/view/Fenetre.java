@@ -104,6 +104,10 @@ public class Fenetre extends javax.swing.JFrame {
 			Thread.currentThread().interrupt();
 		    }
 		    jButton1.setText("Lancer");
+                    jLabelValeurTours.setText("0");
+                    jLabelValeurSourisEnDeplacement.setText("0");
+                    jLabelValeurDeplacements.setText("0");
+                    jLabelValeurSourisArrivees.setText("0");
 		    setMap(null);
 		} else {
 		    t = new Thread() {
@@ -121,6 +125,7 @@ public class Fenetre extends javax.swing.JFrame {
 				speed = Integer.parseInt(vitesse);
 				if (speed < 300) {
 				    speed = 300;
+                                    jTextField3.setText("300");
 				}
 			    } catch (NumberFormatException e) {
 				System.out.println("vitesse incorrecte");
@@ -146,11 +151,11 @@ public class Fenetre extends javax.swing.JFrame {
 				    nbSourisD = 0;
 				}
 
-				nbSouris = nbSourisG + nbSourisD;
 			    } catch (NumberFormatException e) {
 				System.out.println("Pas de souris entree");
 			    }
                             
+                            nbSouris = nbSourisG + nbSourisD;
                             // récupérration des position en Y
                             int y = 0, y2 = 0;
                             try{
@@ -312,6 +317,10 @@ public class Fenetre extends javax.swing.JFrame {
 				Thread.currentThread().interrupt();
 			    }
 			    jButton1.setText("Lancer");
+                            jLabelValeurTours.setText("0");
+                            jLabelValeurSourisEnDeplacement.setText("0");
+                            jLabelValeurDeplacements.setText("0");
+                            jLabelValeurSourisArrivees.setText("0");
                             setMap(null);
 			    revalidate();
 			}
@@ -382,7 +391,7 @@ public class Fenetre extends javax.swing.JFrame {
 					.addComponent(
 						jLabelValeurTours,
 						javax.swing.GroupLayout.PREFERRED_SIZE,
-						20,
+						40,
 						javax.swing.GroupLayout.PREFERRED_SIZE))
 				.addGap(50, 50, 100)
 				.addGroup(
@@ -398,7 +407,7 @@ public class Fenetre extends javax.swing.JFrame {
 					.addComponent(
 						jLabelValeurDeplacements,
 						javax.swing.GroupLayout.PREFERRED_SIZE,
-						35,
+						40,
 						javax.swing.GroupLayout.PREFERRED_SIZE))
 				.addGap(50, 50, 50)
 				.addGroup(
@@ -430,7 +439,7 @@ public class Fenetre extends javax.swing.JFrame {
 					.addComponent(
 						jLabelSourisArrivees,
 						javax.swing.GroupLayout.PREFERRED_SIZE,
-						89,
+						40,
 						javax.swing.GroupLayout.PREFERRED_SIZE))
 				.addGap(66, 66, 66)
 				.addGroup(
