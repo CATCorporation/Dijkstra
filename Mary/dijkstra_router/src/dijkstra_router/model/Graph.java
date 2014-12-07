@@ -60,16 +60,16 @@ public class Graph{
             }
         }
         
-        public void initEdge(){
+        public void initEdge(int l, int c){
             int x = 0;
             int y = 0;
             GenericNode node, verNode, horNode, botNode,leftNode;
             
             this.checkEntry();
             
-            while(x < 48){
+            while(x < l){
                 y=0;
-                while(y < 18){
+                while(y < c){
                     node = this.getNode(x+":"+y);
                     if(node != null){
                         if(!node.getValue().equals("wall")){
@@ -137,5 +137,39 @@ public class Graph{
             }
         }
         
+        public boolean poPornoT( GenericNode node){
+            int x = 0;
+            int y = 0;
+            GenericNode verNode, horNode, botNode,leftNode;            
+            
+            try{
+                x = Integer.parseInt(node.getKey().split(":")[0]);
+                y = Integer.parseInt(node.getKey().split(":")[1]);
+                System.out.println("x vaut  == > " +x  + " y vaut  ===> " + y);
+            }catch (NumberFormatException e){
+                System.out.println(" pop or not erreur recuperation coordonée node");
+            }
+                    if(node != null){
+                            
+                        horNode = this.getNode((x-1)+":"+y);
+                        verNode = this.getNode(x+":"+(y-1));
+                        leftNode = this.getNode((x+1)+":"+y);
+                        botNode = this.getNode(x+":"+(y+1));
+
+                        if( horNode != null &&  !horNode.getValue().equals("wall") )
+                                return true; 
+                        if(verNode != null && !verNode.getValue().equals("wall") )
+                            return true;
+                        if(leftNode != null && !leftNode.getValue().equals("wall") )
+                            return true;
+                        if(botNode != null   && !botNode.getValue().equals("wall") )
+                            return true;
+                        
+                    }
+                
+            
+               
+            return false;
+        }
 
 }
