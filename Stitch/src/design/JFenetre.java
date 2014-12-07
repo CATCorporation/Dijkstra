@@ -15,18 +15,20 @@ public class JFenetre {
 
       
       // Lancement du jeu 
-     /* public static void main(String[] args) {          
-           Runnable r = new Runnable ()
-                   {
-                       public void run()  {
-                           Fenetre monUI=new Fenetre(); 
-                            monUI.pack();
-                            // centrage sur l'écran
-                            monUI.setLocationRelativeTo(null);
-                           monUI.setVisible(true);                         
-                       }
-                   };
-                   SwingUtilities.invokeLater(r);
-      }*/
+      public static void main(String[] args) {          
+          Runnable r = new Runnable() {
+	    @Override
+	    public void run() {
+		Fenetre monUI = new Fenetre();
+		monUI.pack();
+		// centrage sur l'écran
+		monUI.setLocationRelativeTo(null);
+		monUI.setVisible(true);
+		
+
+	    }
+	};
+	SwingUtilities.invokeLater(r);
+      }
 
 } 

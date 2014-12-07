@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 
 public class Graph{
@@ -61,36 +60,20 @@ public class Graph{
             }
         }
         
-        public void initEdge(String key){
-            int x = 0,maxX = 48;
+        public void initEdge(){
+            int x = 0;
             int y = 0;
             GenericNode node, verNode, horNode, botNode,leftNode;
             
-            try{
-                maxX = Integer.parseInt(key.split(":")[0]);
-                if( maxX < 6 )
-                    maxX = 10;
-                else if( maxX < 8 )
-                    maxX = 12;
-                else if( maxX < 10 )
-                    maxX = 14;
-                else if( maxX < 12 )
-                    maxX = 18;
-                else if( maxX < 10 )
-                    maxX = (48/2);
-                else
-                    maxX = 48 ; 
-                              
-            }catch(NumberFormatException e){
-                e.printStackTrace();
-            }
-            while(x < maxX){
+            this.checkEntry();
+            
+            while(x < 48){
                 y=0;
                 while(y < 18){
                     node = this.getNode(x+":"+y);
                     if(node != null){
                         if(!node.getValue().equals("wall")){
-
+                            node.setEdges(null);
                             horNode = this.getNode((x-1)+":"+y);
                             verNode = this.getNode(x+":"+(y-1));
                             leftNode = this.getNode((x+1)+":"+y);
@@ -151,7 +134,6 @@ public class Graph{
             for(String s : map.keySet()){
                 nodes = map.get(s);                
                 nodes.setDistance(Double.POSITIVE_INFINITY);
-                
             }
         }
         

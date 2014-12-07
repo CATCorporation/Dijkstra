@@ -6,6 +6,7 @@
 package diksjtra.source;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 
 /**
@@ -13,57 +14,61 @@ import java.util.ArrayList;
  * @author 626
  */
 
-public class Chaine extends ArrayList<Node>{
+public class Chaine extends ArrayList<Node> {
      
     Node firstElement;
     boolean reversed;
-    
-    public Chaine ()    {
+    private Comparator c;
+
+   
+    public Chaine (Comparator c)    {
         firstElement = null;
         reversed = false;
+        this.c =c;
     }
+    
 
     public void push(Node element) {
-       add(element);
+        int i = 0;
+            if(this.isEmpty()){
+                this.add(element);
+            }else{
+                while( i < this.size()){
+                    if(c.compare(element, this.get(i)) < 0){
+                        break;
+                    }
+                    i++;
+                }
+                this.add(i, element);
+            }
     }
-
+    public void remove(Node d,Edge e){
+        Edge [] liste = new Edge [d.getLien().length-1];
+        int j = 0;
+        for(int i = 0; i < d.getLien().length; i++){
+            if(!liste[i].equals(e)){
+                liste[j] = d.getLien()[i];
+                j++;
+            }
+        }
+       d.setLien(liste);
+    }
+    
     public Node pop() {        
         Node e = get(size() - 1);
         remove(size() - 1);
         return e;
     }
-/*
-    public String toString() {
-        
-        Node tmp = firstElement;
-        String result = "";
-        while (tmp != null) {
-            result += tmp.name + " ";
-            tmp = tmp.previous;
-        }
-        return result;
-    }   
 
-    public int search(String value) {       
-        int i = 1;
-        Node tmp = firstElement;
-        for (int j = 0 ; j < tmp.lien.length; j++) { 
-            if (tmp.lien[i].cible.name.equals(value)) {
-                return i;
-            }
-            tmp = tmp.previous;
-            i++;
-        }
-        return -1;
-    }*/
-    
     public void print(){
         Node tmp = firstElement; 
         
         while(tmp != null){
-            System.out.println(" print :" +tmp.name);
-            tmp = tmp.previous;
+            System.out.println(" print :" +tmp.getName());
+            tmp = tmp.getPrevious();
         }
             
     }
+
+   
 }

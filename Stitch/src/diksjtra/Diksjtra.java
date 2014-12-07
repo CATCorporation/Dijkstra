@@ -11,6 +11,7 @@ import diksjtra.source.Edge;
 import diksjtra.source.Node;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -19,41 +20,53 @@ import java.util.List;
  */
 public class Diksjtra {
 
-    public static void calculchemin(Node source)
+    public static Node calculchemin(Node source, Chaine path)
     {
-        source.minDistance = 0.0;
-        Chaine file = new Chaine();
+        source.setMinDistance(0);
+        Chaine file = new Chaine( new ComparatorDistance());
+        
       	file.push(source);
-	
-        while (!file.isEmpty()) {
+	Node res = null;
+        path.push(source);
+        while (res == null) {
 	    Node u = file.pop();            
             file.print();
             
-            for (Edge e : u.lien)
+            for (Edge e : u.getLien())
             {
-                Node v = e.cible;
-                double poid = e.poid;
-                double distanceTotal = u.minDistance + poid;
                 
-		if (distanceTotal < v.minDistance) {
-		    file.remove(v);
-		    v.minDistance = distanceTotal ;
-		    v.previous = u;
+                Node v = e.cible;
+                path.push(v);
+                //System.out.println(" trouve " + e.cible.getId() + "    coordonee " + v.getId());
+                double poid = e.poid;
+                double distanceTotal = u.getMinDistance() + poid;
+                
+		if (distanceTotal < v.getMinDistance()) {
+		    file.remove(e);
+		    v.setMinDistance(distanceTotal); 
+		    v.setPrevious(u);
 		    file.push(v);
+                    
 		}
-            }
+                if(v.getName().equals("Sortie")){
+                    System.out.println(" trouve " + e.cible.getId());
+                    res = v;
+                    break;
+                }
+            }         
         }
+        return res;
     }
 
     public static List<Node> plusCourtChemin(Node target)
     {
         List<Node> path = new ArrayList<Node>();
-        for (Node point = target; point != null; point = point.previous)
+        for (Node point = target; point != null; point = point.getPrevious())
             path.add(point);
         Collections.reverse(path);
         return path;
     }
-    
+    /*
     public static void main(String[] args)
     {
         
@@ -61,7 +74,7 @@ public class Diksjtra {
         g.initGraph("C:\\Developpement\\Workspace\\Java\\Dijkstra\\Stitch\\src\\traitement\\map.txt");
         for(Node n : g.getNodes()){
             System.out.println(n.name);
-        }*/
+        }
         
         Node v0 = new Node("Paris", "Paris");
 	Node v1 = new Node("Lyon", "Lyon");
@@ -74,7 +87,7 @@ public class Diksjtra {
                                         new Edge(v2, 9),
                                         new Edge(v3, 14) };
         
-	v1.lien = new Edge[]{    new Edge(v0, 7),
+	v1.lien = new Edge[]{    
                                         new Edge(v2, 10),
                                         new Edge(v4, 15) };
         
@@ -94,8 +107,8 @@ public class Diksjtra {
         v5.lien = new Edge[]{    new Edge(v4, 6),
                                         new Edge(v3, 9)};
         
-	Node[] listNode = { v0, v1, v2, v3, v4, v5};
-        calculchemin(v0);
+	Node[] listNode = { v1, v2, v3, v4, v5};
+        calculchemin(v1);
         for (Node v : listNode)
 	{
 	    System.out.println("Distance to " + v + ": " + v.minDistance);
@@ -103,5 +116,5 @@ public class Diksjtra {
 	    System.out.println("Path: " + path);
 	}
         
-    }
+    }*/
 }
