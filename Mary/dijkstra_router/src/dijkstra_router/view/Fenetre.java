@@ -41,6 +41,7 @@ public class Fenetre extends javax.swing.JFrame {
 	setMap(null);
 	running = false;
 	initComponents();
+        this.setResizable(false);
     }
 
     /**
