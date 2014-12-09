@@ -30,7 +30,9 @@ import javax.swing.JPanel;
 public class Fenetre extends javax.swing.JFrame {
 
     public Fenetre() {
+        // panel contenant la MAP 
 	jPanel1 = new JPanel(new GridLayout(19, 48, 0, 0));
+        // Variable de stockage des coordonnées d'arrivé et de départet du nombre de ligne et de colonne
         arrive1 = "";
         arrive2 = "";
         depart1 = "";
@@ -96,7 +98,8 @@ public class Fenetre extends javax.swing.JFrame {
 	jButton1.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mousePressed(MouseEvent e) {
-		if (running) {
+		// si le jeu est en cours on l'arrete
+                if (running) {
 		    try {
 			Thread.sleep(1000);
 			// t.interrupt();
@@ -157,7 +160,8 @@ public class Fenetre extends javax.swing.JFrame {
 			    }
                             
                             nbSouris = nbSourisG + nbSourisD;
-                            // récupérration des position en Y
+                            
+                            // récupérration des position en Y des point de départ
                             int y = 0, y2 = 0;
                             try{
                                 y = Integer.parseInt(depart1.split(":")[1]);
@@ -192,7 +196,8 @@ public class Fenetre extends javax.swing.JFrame {
 				
 				listSouris.push(souris);
 			    }
-
+                            
+                            // variable d'exécution 
 			    int i = 0, actuel = 0, arrivees = 0, j = 0;
 			    GenericNode depart = null;
 			    GenericNode arriveOne = graph.getNode(arrive1), arriveTwo = graph
@@ -206,18 +211,22 @@ public class Fenetre extends javax.swing.JFrame {
 				}
 				depart = listSouris.get(actuel);
                                 
+                                // tant que la souris n'est pas arrivée
 				while (depart != arriveOne && depart != arriveTwo) {
 				    if (!running) {
 					break;
 				    }
+                                    
+                                    // méthode de vérification l'apparrition de souris 
                                     if(!graph.poPornoT(depart)){
-                                        System.out.println(" depart vaut ==> " + depart.getKey() + " actuellll " + actuel);
                                         actuel++;
                                         if (actuel == listSouris.size()) {
                                             actuel = 0;
                                         }
                                         break;
                                     }
+                                    
+                                    // Si on est sur lherbe on passe 1 tour 
 				    if (depart.getValue().equals("wall")
 					    && depart.isHerbe()) {
 					depart.setHerbe(false);
@@ -228,24 +237,21 @@ public class Fenetre extends javax.swing.JFrame {
 					}
 					break;
 				    }
-
-                                    depart.setValue(depart.getOldValue());					// depart.setActif(false);
+                                    
+                                    // on redonne au node sa valeeur d'origine 
+                                    depart.setValue(depart.getOldValue());	                                    
+                               
+                                    // création des Edges
 				    graph.initEdge(ligne,colonne);
 
 				    System.out.println("souris " + actuel
 					    + " position : " + depart.getKey());
 
+                                    //  Calcul du chemin le plus cours 
 				    arrive = Dijstra.findeBestWay2(graph,
 					    depart);
-				    if (arrive == null) {
-					i++;
-					actuel++;
-					if (actuel == listSouris.size()) {
-					    actuel = 0;
-					    
-					}
-					break;
-				    }
+				   
+                                    // parcours du chemin pour avancer
 				    while (arrive.previous.previous != null
 					    && !arrive.previous.getKey()
 					    .equals(depart.getKey())) {
@@ -254,13 +260,17 @@ public class Fenetre extends javax.swing.JFrame {
 
 				    System.out.println("souris : " + actuel
 					    + " va a  : " + arrive);
-				    System.out.println("precedent : "
-					    + arrive.previous + " actuel : "
-					    + arrive);
+                                    
 				    arrive.previous = null;
+                                    
+                                    //Sauvegarde de l'ancien nom du node 
                                     arrive.setOldValue(arrive.getValue());
+                                    
+                                    // vérification si node == herbe
                                     if(arrive.getValue().equals("grass"))
                                         arrive.setHerbe(true);
+                                    
+                                    // affectation en Waal car case actuelelment occupé 
 				    arrive.setValue("wall");
                                     
 				    depart = arrive;
@@ -292,11 +302,12 @@ public class Fenetre extends javax.swing.JFrame {
 				    if (actuel == listSouris.size()) {
 					actuel = 0;
 				    }
-				    // System.out.println("actuel: "+actuel);
+				    
 				    break;
 
 				}
-
+                                
+                                // Traitement des souris arrivées
 				if (depart == arriveOne || depart == arriveTwo) {
 				    System.out.println("supprime");
 				    arrivees++;
@@ -628,30 +639,7 @@ public class Fenetre extends javax.swing.JFrame {
 	// TODO add your handling code here:
     }// GEN-LAST:event_jTextField1ActionPerformed
 
-    public void deplacerSouris(GenericNode souris) {
-	Component c[] = jPanel1.getComponents();
-	int i = 0, x = 0, y = 0;
-	for (Component comp : c) {
-	    JLabel temp = (JLabel) comp;
-	    if (souris != null) {
-		String s = x + ":" + y;
-		System.out.println(s);
-		if (souris.getKey().equals(s)) {
-		    ImageIcon grassIcon = new ImageIcon("./images/souris.png");
-		    temp = new JLabel(grassIcon);
-		    System.out.println("trouvé");
-		    break;
-		}
-	    }
-	    i++;
-	    x++;
-	    if (x > 47) {
-		x = 0;
-		y++;
-	    }
-	    System.out.println(i);
-	}
-    }
+   
 
     public void setMap(Chaine souris) {
 	if (jPanel1 != null) {
@@ -677,6 +665,7 @@ public class Fenetre extends javax.swing.JFrame {
 		    labels[j] = new JLabel(grassIcon);
 		}
 		if (bufferMap.charAt(i) == 'A') {
+                   // affectation des coordonnées des sorties
                     if(arrive2.isEmpty())
                         arrive2 = s;
                     else arrive1 = s;
@@ -688,6 +677,7 @@ public class Fenetre extends javax.swing.JFrame {
 		    labels[j] = new JLabel(grassIcon);
 		}
 		if (bufferMap.charAt(i) == 'D') {
+                    // affectation des coordonées des point de départ
                     if(depart2.isEmpty())
                         depart2 = s;
                     else

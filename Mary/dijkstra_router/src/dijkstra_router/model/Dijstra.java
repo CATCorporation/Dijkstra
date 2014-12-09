@@ -76,9 +76,7 @@ public class Dijstra {
 	    }
 	     //System.out.println("i :" + i);
 	    i++;
-	    /*if (i > 5000) {
-		return null;
-	    }*/
+
 	}
 	System.out.println("i :" + i);
 	return res;
