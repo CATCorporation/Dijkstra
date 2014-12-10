@@ -44,16 +44,19 @@ public class Dijstra {
 	GenericNode res = null, other, current = start;
 	current.setDistance(0);
 	int i = 0;
-	LinkedPriorityQueue queue = new LinkedPriorityQueue(new ComparatorDistance());
-	while (res == null) {
+        LinkedPriorityQueue queue2 = new LinkedPriorityQueue(new ComparatorDistance());
+	PriorityQueue queue = new PriorityQueue(new ComparatorDistance());
+        while (res == null) {
 	    for (GenericEdge edge : (List<GenericEdge>) current.getEdges()) {
 		edge.setAttribute((int) current.getDistance());
-		queue.add(edge);
+		queue2.add(edge);
+                queue.push(new Element(edge));
 		log.put(edge, current);
 	    }
             if(queue.size() == 0)
                 return current;
-	    GenericEdge temp = (GenericEdge) queue.remove();
+            
+            GenericEdge temp = (GenericEdge) queue.pop().getValue();
 	    while ((other = temp.getOther(current)) == null) {
 
 		current = log.get(temp);
@@ -68,9 +71,6 @@ public class Dijstra {
 	    current.getEdges().remove(temp);
 	    current = temp.getOther(current);
 	    current.getEdges().remove(temp);
-	    if (current.getValue().equals("13:6")) {
-		System.out.println("5 trouvé");
-	    }
 	    if (current.getValue().equals("Sortie")) {
 		res = current;
 	    }
@@ -78,7 +78,6 @@ public class Dijstra {
 	    i++;
 
 	}
-	System.out.println("i :" + i);
 	return res;
     }
 

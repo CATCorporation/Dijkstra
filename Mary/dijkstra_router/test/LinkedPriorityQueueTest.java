@@ -38,6 +38,7 @@ private static LinkedPriorityQueue queue;
 	queue.add(new GenericEdge(new GenericNode("2:2"), new GenericNode("3:3"), new Distance(1)));
 	queue.add(new GenericEdge(new GenericNode("3:3"), new GenericNode("4:4"), new Distance(4)));
 	queue.add(new GenericEdge(new GenericNode("4:4"), new GenericNode("5:5"), new Distance(2)));
+        queue.add(new GenericEdge(new GenericNode("11:11"), new GenericNode("11:11"), new Distance(1)));
 	
     }
 

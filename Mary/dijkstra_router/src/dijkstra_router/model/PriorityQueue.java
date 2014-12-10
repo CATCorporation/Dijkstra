@@ -35,7 +35,7 @@ public class PriorityQueue {
 			boolean ajoute = false;
 
 			// Si le premier edge est plus petit que le edge en parametre
-			if (c.compare(firstElement.getValue(), element.getValue()) > 0) {
+			if (c.compare(element.getValue(), firstElement.getValue()) < 0) {
 				tmp = firstElement;
 				firstElement = element;
 				firstElement.setNextElement(tmp);
@@ -44,7 +44,7 @@ public class PriorityQueue {
 			} else {
 				if (firstElement.getNextElement() != null) {
 					if (c.compare(firstElement.getNextElement().getValue(),
-							element.getValue()) >= 0) {
+							element.getValue()) > 0) {
 						tmp = firstElement.getNextElement();
 						firstElement.setNextElement(element);
 						tmp2 = firstElement.getNextElement();

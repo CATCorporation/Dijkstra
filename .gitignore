@@ -1,5 +1,12 @@
-/Mary/dijkstra_router/dist/
-/Stitch/dist/
-*.class
-*.class
-*.class
+/JavaApplication1/nbproject/private/
+/bin
+nproject/
+/nproject
+!nbproject/project.properties
+!nbproject/project.xml
+/nbproject/private/
+/build/
+.classpath
+.project
+/dist/
+/nproject/project.properties

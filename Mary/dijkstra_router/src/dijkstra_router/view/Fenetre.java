@@ -244,8 +244,7 @@ public class Fenetre extends javax.swing.JFrame {
                                     // création des Edges
 				    graph.initEdge(ligne,colonne);
 
-				    System.out.println("souris " + actuel
-					    + " position : " + depart.getKey());
+				    
 
                                     //  Calcul du chemin le plus cours 
 				    arrive = Dijstra.findeBestWay2(graph,
@@ -258,8 +257,6 @@ public class Fenetre extends javax.swing.JFrame {
 					arrive = arrive.previous;
 				    }
 
-				    System.out.println("souris : " + actuel
-					    + " va a  : " + arrive);
                                     
 				    arrive.previous = null;
                                     
@@ -309,7 +306,6 @@ public class Fenetre extends javax.swing.JFrame {
                                 
                                 // Traitement des souris arrivées
 				if (depart == arriveOne || depart == arriveTwo) {
-				    System.out.println("supprime");
 				    arrivees++;
                                     arriveOne.setValue("Sortie");
                                     arriveTwo.setValue("Sortie");
@@ -321,7 +317,6 @@ public class Fenetre extends javax.swing.JFrame {
 				    revalidate();
 				}
 			    }
-			    System.out.println("fini");
 			    try {
 				Thread.sleep(1000);
 				running = false;
