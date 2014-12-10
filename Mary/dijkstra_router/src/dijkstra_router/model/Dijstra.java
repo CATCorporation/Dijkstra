@@ -44,12 +44,10 @@ public class Dijstra {
 	GenericNode res = null, other, current = start;
 	current.setDistance(0);
 	int i = 0;
-        LinkedPriorityQueue queue2 = new LinkedPriorityQueue(new ComparatorDistance());
 	PriorityQueue queue = new PriorityQueue(new ComparatorDistance());
         while (res == null) {
 	    for (GenericEdge edge : (List<GenericEdge>) current.getEdges()) {
 		edge.setAttribute((int) current.getDistance());
-		queue2.add(edge);
                 queue.push(new Element(edge));
 		log.put(edge, current);
 	    }
