@@ -20,7 +20,7 @@ public class ComparatorDistance implements Comparator<GenericEdge>{
         if(o1.getAttribute().getValue() < o2.getAttribute().getValue()){
             return -1;
         }
-        if(o2.getAttribute().getValue() > o2.getAttribute().getValue()){
+        if(o1.getAttribute().getValue() > o2.getAttribute().getValue()){
             return 1;
         }
         return 0;
