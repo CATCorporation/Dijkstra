@@ -6,7 +6,7 @@
 package dijkstra_router.view;
 
 import dijkstra_router.model.Chaine;
-import dijkstra_router.model.Dijstra;
+import dijkstra_router.model.Dijkstra;
 import dijkstra_router.model.GenericNode;
 import dijkstra_router.model.Graph;
 import dijkstra_router.model.Map;
@@ -132,7 +132,7 @@ public class Fenetre extends javax.swing.JFrame {
                                     jTextField3.setText("300");
 				}
 			    } catch (NumberFormatException e) {
-				System.out.println("vitesse incorrecte");
+				System.err.println("vitesse incorrecte");
 				jTextField3.setText("300");
 			    }
 
@@ -156,7 +156,7 @@ public class Fenetre extends javax.swing.JFrame {
 				}
 
 			    } catch (NumberFormatException e) {
-				System.out.println("Pas de souris entree");
+				System.err.println("Pas de souris entree");
 			    }
                             
                             nbSouris = nbSourisG + nbSourisD;
@@ -167,13 +167,13 @@ public class Fenetre extends javax.swing.JFrame {
                                 y = Integer.parseInt(depart1.split(":")[1]);
                             }catch(NumberFormatException e )
                             {
-                                System.out.println(" depart 1 incorrect");
+                                System.err.println(" depart 1 incorrect");
                             }
                             try{
                                 y2 = Integer.parseInt(depart2.split(":")[1]);
                             }catch(NumberFormatException e )
                             {
-                                System.out.println(" depart 1 incorrect");
+                                System.err.println(" depart 1 incorrect");
                             }
                             
 			    for (int iG = 0; iG < nbSourisG; iG++) {
@@ -247,8 +247,7 @@ public class Fenetre extends javax.swing.JFrame {
 				    
 
                                     //  Calcul du chemin le plus cours 
-				    arrive = Dijstra.findeBestWay2(graph,
-					    depart);
+				    arrive = Dijkstra.findeBestWay(depart);
 				   
                                     // parcours du chemin pour avancer
 				    while (arrive.previous.previous != null

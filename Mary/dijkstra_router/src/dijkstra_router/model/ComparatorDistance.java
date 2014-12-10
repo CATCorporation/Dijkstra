@@ -10,7 +10,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author Lucas
+ * @author Mary
  */
 public class ComparatorDistance implements Comparator<GenericEdge>{
 

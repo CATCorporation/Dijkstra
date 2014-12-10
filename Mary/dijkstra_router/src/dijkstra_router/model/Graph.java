@@ -15,6 +15,10 @@ public class Graph{
 		
 	}
         
+        /**
+         * initialize the graph via a text file
+         * @param path path of text file 
+         */
         public void initGraph(String path){
             
             BufferedReader file ;
@@ -52,24 +56,29 @@ public class Graph{
             }//try
             catch (NullPointerException a)
             {
-                    System.out.println("Erreur : pointeur null");
+                    System.err.println("Erreur : pointeur null");
             }
             catch (IOException a) 
             {
-                    System.out.println("Problème d'IO  en lecture");
+                    System.err.println("Problème d'IO  en lecture");
             }
         }
         
-        public void initEdge(int l, int c){
+        /**
+         * create edge for each node
+         * @param limitH limit of horizontal axis
+         * @param limitV limit of vertical axis
+         */
+        public void initEdge(int limitH, int limitV){
             int x = 0;
             int y = 0;
             GenericNode node, verNode, horNode, botNode,leftNode;
             
             this.checkEntry();
             
-            while(x < l){
+            while(x < limitH){
                 y=0;
-                while(y < c){
+                while(y < limitV){
                     node = this.getNode(x+":"+y);
                     if(node != null){
                         if(!node.getValue().equals("wall")){
@@ -110,6 +119,10 @@ public class Graph{
 		return map.get(key);
 	}
         
+        /**
+         * Give all nodes in the graph as a list
+         * @return Arraylist of node
+         */
         public ArrayList<GenericNode> getNodes(){
             ArrayList<GenericNode> nodes = new ArrayList<GenericNode>();
             for(String s : map.keySet()){
@@ -119,11 +132,19 @@ public class Graph{
             return nodes;
         }
         
+        /**
+         * add a node in the graph
+         * @param node node at add
+         */
 	public void registerNode(GenericNode node) {
 		// TODO Auto-generated method stub
 		map.put(node.getKey(), node);
 	}
 
+        /**
+         * Remove a node in the graph
+         * @param key key of node at remove
+         */
 	public void unregisterNode(String key) {
 		// TODO Auto-generated method stub
 		map.remove(key);		
@@ -145,9 +166,8 @@ public class Graph{
             try{
                 x = Integer.parseInt(node.getKey().split(":")[0]);
                 y = Integer.parseInt(node.getKey().split(":")[1]);
-                System.out.println("x vaut  == > " +x  + " y vaut  ===> " + y);
             }catch (NumberFormatException e){
-                System.out.println(" pop or not erreur recuperation coordonée node");
+                System.err.println(" pop or not erreur recuperation coordonée node");
             }
                     if(node != null){
                             
