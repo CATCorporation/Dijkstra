@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package dijkstra_router;
+package dijkstra_router.model;
 
 /**
  *
@@ -23,6 +23,6 @@ public class Distance {
     }
     
     public void addValue(int add){
-        value += add;
+        value = add;
     }
 }

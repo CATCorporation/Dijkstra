@@ -1,4 +1,4 @@
-package dijkstra_router;
+package dijkstra_router.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,9 +43,9 @@ public class GenericEdge{
 	
 	}
 
-	public void setAttribute(String key, Object value) {
+	public void setAttribute(int Distance) {
 		// TODO Auto-generated method stub
-		this.attributes.put(key, value);
+		value.addValue(Distance);
 	}
 
         public void push(GenericEdge e){
